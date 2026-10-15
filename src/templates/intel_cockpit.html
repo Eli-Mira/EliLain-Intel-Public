@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self';">
+    <meta name="referrer" content="no-referrer">
+    <title>EliLain Intelligence Cockpit</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #e6edf3; line-height: 1.6; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        header { border-bottom: 1px solid #30363d; padding-bottom: 16px; margin-bottom: 24px; }
+        h1 { font-size: 1.75rem; font-weight: 600; color: #f0f6fc; }
+        .subtitle { color: #8b949e; font-size: 0.95rem; margin-top: 4px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+        .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; }
+        .card h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: #f0f6fc; }
+        .card h3 { font-size: 0.9rem; font-weight: 500; margin: 16px 0 8px; color: #8b949e; }
+        .field { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #21262d; }
+        .field:last-child { border-bottom: none; }
+        .field-label { color: #8b949e; }
+        .field-value { color: #f0f6fc; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; }
+        .btn { background: #238636; border: none; border-radius: 6px; color: white; padding: 10px 16px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background 0.15s; }
+        .btn:hover { background: #2ea043; }
+        .btn:disabled { background: #30363d; color: #8b949e; cursor: not-allowed; }
+        .btn-secondary { background: #30363d; color: #e6edf3; }
+        .btn-secondary:hover { background: #484f58; }
+        .btn-danger { background: #da3633; }
+        .btn-danger:hover { background: #f85149; }
+        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+        .status-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 500; }
+        .status-idle { background: #21262d; color: #8b949e; }
+        .status-running { background: #1f3a5f; color: #58a6ff; }
+        .status-completed { background: #113827; color: #3fb950; }
+        .status-failed { background: #481a18; color: #f85149; }
+        .history-list { list-style: none; }
+        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #21262d; }
+        .history-item:last-child { border-bottom: none; }
+        .history-info { display: flex; flex-direction: column; gap: 2px; }
+        .history-title { font-weight: 500; }
+        .history-meta { font-size: 0.8rem; color: #8b949e; }
+        .history-link { color: #58a6ff; text-decoration: none; font-size: 0.85rem; }
+        .history-link:hover { text-decoration: underline; }
+        .error { color: #f85149; font-size: 0.85rem; margin-top: 8px; }
+        .success { color: #3fb950; font-size: 0.85rem; margin-top: 8px; }
+        .hidden { display: none !important; }
+        .settings-form { display: grid; gap: 16px; }
+        .form-group { display: grid; gap: 4px; }
+        .form-group label { font-size: 0.85rem; font-weight: 500; color: #e6edf3; }
+        .form-group input, .form-group select { background: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #e6edf3; padding: 8px 12px; font-size: 0.9rem; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #58a6ff; }
+        .source-toggle { display: flex; align-items: center; gap: 8px; padding: 10px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; }
+        .source-toggle input[type="checkbox"] { width: 18px; height: 18px; accent-color: #238636; }
+        .source-info { flex: 1; }
+        .source-name { font-weight: 500; }
+        .source-adapter { font-size: 0.8rem; color: #8b949e; }
+        input[type="number"] { width: 100px; }
+        .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #30363d; border-top-color: #58a6ff; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>EliLain Intelligence Cockpit</h1>
+            <p class="subtitle">Local intelligence dashboard — settings, scan, and history</p>
+        </header>
+
+        <div class="grid">
+            <!-- Status Card -->
+            <section class="card" aria-labelledby="status-heading">
+                <h2 id="status-heading">Scan Status</h2>
+                <div class="field">
+                    <span class="field-label">State</span>
+                    <span class="field-value">
+                        <span id="status-indicator" class="status-indicator status-idle">
+                            <span id="status-spinner" class="spinner hidden"></span>
+                            <span id="status-text">Idle</span>
+                        </span>
+                    </span>
+                </div>
+                <div class="field">
+                    <span class="field-label">Last Run</span>
+                    <span class="field-value" id="last-report">Never</span>
+                </div>
+                <div class="field">
+                    <span class="field-label">Last Error</span>
+                    <span class="field-value" id="last-error">None</span>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" id="scan-btn" onclick="startScan()">Run Scan</button>
+                    <button class="btn btn-secondary" id="refresh-status-btn" onclick="loadStatus()">Refresh Status</button>
+                </div>
+                <div id="scan-error" class="error hidden"></div>
+                <div id="scan-success" class="success hidden"></div>
+            </section>
+
+            <!-- Settings Card -->
+            <section class="card" aria-labelledby="settings-heading">
+                <h2 id="settings-heading">Settings</h2>
+                <form class="settings-form" id="settings-form">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    
+                    <div class="form-group">
+                        <label for="max_items">Max Items (1-10)</label>
+                        <input type="number" name="max_items" id="max_items" min="1" max="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="max_age_days">Max Age Days (1-30)</label>
+                        <input type="number" name="max_age_days" id="max_age_days" min="1" max="30" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="min_score">Min Score (0-100)</label>
+                        <input type="number" name="min_score" id="min_score" min="0" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule_timezone">Schedule Timezone</label>
+                        <select name="schedule_timezone" id="schedule_timezone">
+                            <option value="Africa/Cairo">Africa/Cairo (Default)</option>
+                            <option value="UTC">UTC</option>
+                            <option value="America/New_York">America/New_York</option>
+                            <option value="Europe/London">Europe/London</option>
+                            <option value="Asia/Tokyo">Asia/Tokyo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule_hour">Schedule Hour (0-23)</label>
+                        <input type="number" name="schedule_hour" id="schedule_hour" min="0" max="23" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="schedule_minute">Schedule Minute (0-59)</label>
+                        <input type="number" name="schedule_minute" id="schedule_minute" min="0" max="59" required>
+                    </div>
+                    
+                    <h3>Sources</h3>
+                    <div id="sources-list"></div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn" id="save-settings-btn">Save Settings</button>
+                        <button type="button" class="btn btn-secondary" onclick="loadSettings()">Reload</button>
+                    </div>
+                </form>
+                <div id="settings-error" class="error hidden"></div>
+                <div id="settings-success" class="success hidden"></div>
+            </section>
+        </div>
+
+        <!-- History Card (full width) -->
+        <section class="card" aria-labelledby="history-heading" style="margin-top: 16px;">
+            <h2 id="history-heading">Report History</h2>
+            <ul class="history-list" id="history-list">
+                <li class="history-item">
+                    <span class="history-meta">Loading...</span>
+                </li>
+            </ul>
+            <div class="btn-group" style="margin-top: 16px;">
+                <button class="btn btn-secondary" onclick="loadHistory()">Refresh History</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // CSRF token from template
+        const CSRF_TOKEN = "{{ csrf_token }}";
+
+        // API base URL
+        const API_BASE = "";
+
+        // Utility: make authenticated request
+        async function apiRequest(path, options = {}) {
+            const headers = {
+                "Content-Type": "application/json",
+                "Origin": window.location.origin,
+                "Host": window.location.host,
+                ...options.headers,
+            };
+            
+            if (options.body && typeof options.body === "object") {
+                options.body = JSON.stringify(options.body);
+            }
+
+            const response = await fetch(path, {
+                ...options,
+                headers,
+                credentials: "same-origin",
+            });
+
+            if (!response.ok) {
+                const error = await response.json().catch(() => ({ error: response.statusText }));
+                throw new Error(error.error || `HTTP ${response.status}`);
+            }
+
+            return response.json();
+        }
+
+        // Load and display settings
+        async function loadSettings() {
+            try {
+                const settings = await apiRequest("/api/settings");
+                document.getElementById("max_items").value = settings.max_items;
+                document.getElementById("max_age_days").value = settings.max_age_days;
+                document.getElementById("min_score").value = settings.min_score;
+                document.getElementById("schedule_timezone").value = settings.schedule.timezone;
+                document.getElementById("schedule_hour").value = settings.schedule.hour;
+                document.getElementById("schedule_minute").value = settings.schedule.minute;
+
+                // Render source toggles
+                const sourcesList = document.getElementById("sources-list");
+                sourcesList.innerHTML = "";
+                settings.sources.forEach(source => {
+                    const div = document.createElement("div");
+                    div.className = "source-toggle";
+                    div.innerHTML = `
+                        <input type="checkbox" name="sources[${source.id}][enabled]" 
+                               ${source.enabled ? "checked" : ""} 
+                               onchange="this.form.requestSubmit()">
+                        <div class="source-info">
+                            <div class="source-name">${source.name}</div>
+                            <div class="source-adapter">Adapter: ${source.adapter} | ID: ${source.id}</div>
+                        </div>
+                    `;
+                    sourcesList.appendChild(div);
+                });
+
+                hideMessages();
+            } catch (e) {
+                showError("settings-error", e.message);
+            }
+        }
+
+        // Save settings
+        document.getElementById("settings-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            hideMessages();
+
+            const formData = new FormData(e.target);
+            const settings = {
+                schema_version: 1,
+                max_items: parseInt(formData.get("max_items")),
+                max_age_days: parseInt(formData.get("max_age_days")),
+                min_score: parseInt(formData.get("min_score")),
+                schedule: {
+                    timezone: formData.get("schedule_timezone"),
+                    hour: parseInt(formData.get("schedule_hour")),
+                    minute: parseInt(formData.get("schedule_minute")),
+                },
+                sources: [],
+            };
+
+            // Collect source enabled states
+            document.querySelectorAll('#sources-list input[type="checkbox"]').forEach(cb => {
+                const sourceId = cb.name.match(/sources\[([^\]]+)\]\[enabled\]/)[1];
+                settings.sources.push({ id: sourceId, enabled: cb.checked });
+            });
+
+            try {
+                await apiRequest("/api/settings", {
+                    method: "POST",
+                    headers: { "X-CSRF-Token": CSRF_TOKEN },
+                    body: settings,
+                });
+                showSuccess("settings-success", "Settings saved successfully");
+                loadSettings(); // Reload to get full validated settings
+            } catch (e) {
+                showError("settings-error", e.message);
+            }
+        });
+
+        // Load scan status
+        async function loadStatus() {
+            try {
+                const status = await apiRequest("/api/status");
+                updateStatusUI(status);
+            } catch (e) {
+                showError("scan-error", e.message);
+            }
+        }
+
+        function updateStatusUI(status) {
+            const indicator = document.getElementById("status-indicator");
+            const spinner = document.getElementById("status-spinner");
+            const text = document.getElementById("status-text");
+            const scanBtn = document.getElementById("scan-btn");
+
+            indicator.className = "status-indicator";
+            text.textContent = status.status.charAt(0).toUpperCase() + status.status.slice(1);
+
+            if (status.running) {
+                indicator.classList.add("status-running");
+                spinner.classList.remove("hidden");
+                scanBtn.disabled = true;
+                scanBtn.textContent = "Scanning...";
+            } else if (status.status === "completed") {
+                indicator.classList.add("status-completed");
+                spinner.classList.add("hidden");
+                scanBtn.disabled = false;
+                scanBtn.textContent = "Run Scan";
+            } else if (status.status === "failed") {
+                indicator.classList.add("status-failed");
+                spinner.classList.add("hidden");
+                scanBtn.disabled = false;
+                scanBtn.textContent = "Run Scan";
+            } else {
+                indicator.classList.add("status-idle");
+                spinner.classList.add("hidden");
+                scanBtn.disabled = false;
+                scanBtn.textContent = "Run Scan";
+            }
+
+            document.getElementById("last-report").textContent = status.last_report || "Never";
+            document.getElementById("last-error").textContent = status.last_error || "None";
+        }
+
+        // Start scan
+        async function startScan() {
+            hideMessages();
+            const scanBtn = document.getElementById("scan-btn");
+            scanBtn.disabled = true;
+            scanBtn.textContent = "Starting...";
+
+            try {
+                await apiRequest("/api/scan", {
+                    method: "POST",
+                    headers: { "X-CSRF-Token": CSRF_TOKEN },
+                    body: {},
+                });
+                showSuccess("scan-success", "Scan started");
+                // Poll status
+                pollStatus();
+            } catch (e) {
+                showError("scan-error", e.message);
+                scanBtn.disabled = false;
+                scanBtn.textContent = "Run Scan";
+            }
+        }
+
+        function pollStatus() {
+            const interval = setInterval(async () => {
+                try {
+                    const status = await apiRequest("/api/status");
+                    updateStatusUI(status);
+                    if (!status.running) {
+                        clearInterval(interval);
+                        loadHistory(); // Refresh history after scan
+                    }
+                } catch (e) {
+                    clearInterval(interval);
+                }
+            }, 2000);
+        }
+
+        // Load history
+        async function loadHistory() {
+            try {
+                const data = await apiRequest("/api/history");
+                const list = document.getElementById("history-list");
+                list.innerHTML = "";
+
+                if (data.reports.length === 0) {
+                    list.innerHTML = '<li class="history-item"><span class="history-meta">No reports yet</span></li>';
+                    return;
+                }
+
+                data.reports.forEach(report => {
+                    const li = document.createElement("li");
+                    li.className = "history-item";
+                    li.innerHTML = `
+                        <div class="history-info">
+                            <span class="history-title">${report.id}</span>
+                            <span class="history-meta">${report.report_date} · ${new Date(report.generated_at).toLocaleString()} · ${report.selected_count} items</span>
+                        </div>
+                        <a href="${report.url}" class="history-link">View</a>
+                    `;
+                    list.appendChild(li);
+                });
+            } catch (e) {
+                document.getElementById("history-list").innerHTML = 
+                    `<li class="history-item"><span class="history-meta" style="color:#f85149;">Error: ${e.message}</span></li>`;
+            }
+        }
+
+        // Message helpers
+        function showError(id, message) {
+            const el = document.getElementById(id);
+            el.textContent = message;
+            el.classList.remove("hidden");
+        }
+
+        function showSuccess(id, message) {
+            const el = document.getElementById(id);
+            el.textContent = message;
+            el.classList.remove("hidden");
+        }
+
+        function hideMessages() {
+            document.querySelectorAll(".error, .success").forEach(el => el.classList.add("hidden"));
+        }
+
+        // Initialize
+        document.addEventListener("DOMContentLoaded", () => {
+            loadSettings();
+            loadStatus();
+            loadHistory();
+        });
+    </script>
+</body>
+</html>

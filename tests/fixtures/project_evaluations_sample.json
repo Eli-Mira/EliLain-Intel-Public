@@ -1,0 +1,2288 @@
+{
+ "discovery_snapshot": [
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "byoungd/up",
+   "id": "github:byoungd/up",
+   "last_seen": null,
+   "project_types": [],
+   "source": "github-trending",
+   "url": "https://github.com/byoungd/up"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "colbymchenry/codegraph",
+   "id": "github:colbymchenry/codegraph",
+   "last_seen": null,
+   "project_types": [
+    "agents"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/colbymchenry/codegraph"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "ComposioHQ/awesome-claude-skills",
+   "id": "github:composiohq/awesome-claude-skills",
+   "last_seen": null,
+   "project_types": [
+    "automation"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/ComposioHQ/awesome-claude-skills"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "debpalash/VoiceStudio",
+   "id": "github:debpalash/voicestudio",
+   "last_seen": null,
+   "project_types": [
+    "design"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/debpalash/VoiceStudio"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "DietrichGebert/ponytail",
+   "id": "github:dietrichgebert/ponytail",
+   "last_seen": null,
+   "project_types": [
+    "agents"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/DietrichGebert/ponytail"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "firebase/firebase-ios-sdk",
+   "id": "github:firebase/firebase-ios-sdk",
+   "last_seen": null,
+   "project_types": [
+    "mobile"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/firebase/firebase-ios-sdk"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "harry0703/MoneyPrinterTurbo",
+   "id": "github:harry0703/moneyprinterturbo",
+   "last_seen": null,
+   "project_types": [
+    "automation"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/harry0703/MoneyPrinterTurbo"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "heygen-com/hyperframes",
+   "id": "github:heygen-com/hyperframes",
+   "last_seen": null,
+   "project_types": [
+    "agents",
+    "web"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/heygen-com/hyperframes"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "mattpocock/skills",
+   "id": "github:mattpocock/skills",
+   "last_seen": null,
+   "project_types": [
+    "agents"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/mattpocock/skills"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "mksglu/context-mode",
+   "id": "github:mksglu/context-mode",
+   "last_seen": null,
+   "project_types": [
+    "agents"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/mksglu/context-mode"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "modelcontextprotocol/servers",
+   "id": "github:modelcontextprotocol/servers",
+   "last_seen": null,
+   "project_types": [],
+   "source": "github-trending",
+   "url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "mvschwarz/openrig",
+   "id": "github:mvschwarz/openrig",
+   "last_seen": null,
+   "project_types": [
+    "agents"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/mvschwarz/openrig"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "NawfalMotii79/PLFM_RADAR",
+   "id": "github:nawfalmotii79/plfm_radar",
+   "last_seen": null,
+   "project_types": [],
+   "source": "github-trending",
+   "url": "https://github.com/NawfalMotii79/PLFM_RADAR"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "NVIDIA/OpenShell",
+   "id": "github:nvidia/openshell",
+   "last_seen": null,
+   "project_types": [
+    "agents"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/NVIDIA/OpenShell"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "openclaw/openclaw",
+   "id": "github:openclaw/openclaw",
+   "last_seen": null,
+   "project_types": [],
+   "source": "github-trending",
+   "url": "https://github.com/openclaw/openclaw"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "pytorch/pytorch",
+   "id": "github:pytorch/pytorch",
+   "last_seen": null,
+   "project_types": [],
+   "source": "github-trending",
+   "url": "https://github.com/pytorch/pytorch"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "t8y2/dbx",
+   "id": "github:t8y2/dbx",
+   "last_seen": null,
+   "project_types": [
+    "agents",
+    "data",
+    "devops"
+   ],
+   "source": "github-trending",
+   "url": "https://github.com/t8y2/dbx"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "VectifyAI/PageIndex",
+   "id": "github:vectifyai/pageindex",
+   "last_seen": null,
+   "project_types": [],
+   "source": "github-trending",
+   "url": "https://github.com/VectifyAI/PageIndex"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 1000000,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Anthropic: Claude Sonnet 5.5",
+   "id": "openrouter:model:anthropic/claude-sonnet-5.5",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/anthropic/claude-sonnet-5.5"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 1000000,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Anthropic: Claude Sonnet 5.5 (batch)",
+   "id": "openrouter:model:anthropic/claude-sonnet-5.5:batch",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/anthropic/claude-sonnet-5.5%3Abatch"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 0,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "ByteDance Seed: Seed Audio 1.0",
+   "id": "openrouter:model:bytedance-seed/seed-audio-1-0",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "speech",
+    "text"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/bytedance-seed/seed-audio-1-0"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 0,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Fish Audio: Transcribe 1 Pro",
+   "id": "openrouter:model:fish-audio/transcribe-1-pro",
+   "last_seen": null,
+   "project_types": [
+    "audio",
+    "multimodal",
+    "transcription"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/fish-audio/transcribe-1-pro"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 98304,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Google: Gemini 3.5 Transcribe",
+   "id": "openrouter:model:google/gemini-3.5-transcribe",
+   "last_seen": null,
+   "project_types": [
+    "audio",
+    "multimodal",
+    "transcription"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/google/gemini-3.5-transcribe"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 8192,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Jared Palmer: Kev 4B",
+   "id": "openrouter:model:jaredpalmer/kev-4b",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "text"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/jaredpalmer/kev-4b"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 1050000,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "OpenAI: GPT-6.1 Sol",
+   "id": "openrouter:model:openai/gpt-6.1-sol",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/openai/gpt-6.1-sol"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 1050000,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "OpenAI: GPT-6.1 Sol Pro",
+   "id": "openrouter:model:openai/gpt-6.1-sol-pro",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/openai/gpt-6.1-sol-pro"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 1050000,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "OpenAI: GPT-6.1 Sol Pro (batch)",
+   "id": "openrouter:model:openai/gpt-6.1-sol-pro:batch",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/openai/gpt-6.1-sol-pro%3Abatch"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 1050000,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "OpenAI: GPT-6.1 Sol (batch)",
+   "id": "openrouter:model:openai/gpt-6.1-sol:batch",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/openai/gpt-6.1-sol%3Abatch"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 36864,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Perceptron: Perceptron Mk1.5",
+   "id": "openrouter:model:perceptron/perceptron-mk1.5",
+   "last_seen": null,
+   "project_types": [
+    "audio",
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "video",
+    "vision"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/perceptron/perceptron-mk1.5"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 0,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Respan: Span-01",
+   "id": "openrouter:model:respan/span-01",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "text"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/respan/span-01"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 0,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Respan: Span-01 Lite",
+   "id": "openrouter:model:respan/span-01-lite",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "text"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/respan/span-01-lite"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 0,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Respan: Span-01 Lite (free)",
+   "id": "openrouter:model:respan/span-01-lite:free",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "text"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/respan/span-01-lite%3Afree"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 1000000,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "TypeSafe: Jev Router",
+   "id": "openrouter:model:typesafe/jev-router",
+   "last_seen": null,
+   "project_types": [
+    "audio",
+    "multimodal",
+    "text",
+    "video",
+    "vision"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/typesafe/jev-router"
+  },
+  {
+   "fingerprint_data": {
+    "context_length": 524288,
+    "hugging_face_id": null,
+    "per_request_limits": null,
+    "supported_voices": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Upstage: Solar Decide",
+   "id": "openrouter:model:upstage/solar-decide",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "text"
+   ],
+   "source": "openrouter-models",
+   "url": "https://openrouter.ai/upstage/solar-decide"
+  },
+  {
+   "fingerprint_data": {
+    "datacenters": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "AI21",
+   "id": "openrouter:provider:ai21",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/ai21"
+  },
+  {
+   "fingerprint_data": {
+    "privacy_policy_url": null,
+    "status_page_url": null,
+    "terms_of_service_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Arcee AI",
+   "id": "openrouter:provider:arcee-ai",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/arcee-ai"
+  },
+  {
+   "fingerprint_data": {
+    "headquarters": null,
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Black Forest Labs",
+   "id": "openrouter:provider:black-forest-labs",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/black-forest-labs"
+  },
+  {
+   "fingerprint_data": {
+    "datacenters": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Cerebras",
+   "id": "openrouter:provider:cerebras",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/cerebras"
+  },
+  {
+   "fingerprint_data": {
+    "datacenters": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Claude Platform on AWS",
+   "id": "openrouter:provider:claude-on-aws",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/claude-on-aws"
+  },
+  {
+   "fingerprint_data": {
+    "headquarters": null,
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Deepgram",
+   "id": "openrouter:provider:deepgram",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/deepgram"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Io Net",
+   "id": "openrouter:provider:io-net",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/io-net"
+  },
+  {
+   "fingerprint_data": {
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Ionstream",
+   "id": "openrouter:provider:ionstream",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/ionstream"
+  },
+  {
+   "fingerprint_data": {
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Minimax",
+   "id": "openrouter:provider:minimax",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/minimax"
+  },
+  {
+   "fingerprint_data": {
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Moonshot AI",
+   "id": "openrouter:provider:moonshotai",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/moonshotai"
+  },
+  {
+   "fingerprint_data": {
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Morph",
+   "id": "openrouter:provider:morph",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/morph"
+  },
+  {
+   "fingerprint_data": {
+    "headquarters": null,
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Reka",
+   "id": "openrouter:provider:reka",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/reka"
+  },
+  {
+   "fingerprint_data": {
+    "datacenters": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "SambaNova",
+   "id": "openrouter:provider:sambanova",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/sambanova"
+  },
+  {
+   "fingerprint_data": {
+    "datacenters": null,
+    "headquarters": null,
+    "privacy_policy_url": null,
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "Stealth",
+   "id": "openrouter:provider:stealth",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/stealth"
+  },
+  {
+   "fingerprint_data": {
+    "headquarters": null,
+    "privacy_policy_url": null,
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "StepFun",
+   "id": "openrouter:provider:stepfun",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/stepfun"
+  },
+  {
+   "fingerprint_data": {
+    "datacenters": null,
+    "headquarters": null,
+    "status_page_url": null
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "VoyageAI by MongoDB",
+   "id": "openrouter:provider:voyageai",
+   "last_seen": null,
+   "project_types": [],
+   "source": "openrouter-providers",
+   "url": "https://openrouter.ai/provider/voyageai"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "frontend-design",
+   "id": "skills:anthropics/skills/frontend-design",
+   "last_seen": null,
+   "project_types": [
+    "design",
+    "web"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/anthropics/skills/frontend-design"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "reddit-automation",
+   "id": "skills:flowkit-labs/skills/reddit-automation",
+   "last_seen": null,
+   "project_types": [
+    "automation"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/flowkit-labs/skills/reddit-automation"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "video-edit",
+   "id": "skills:genmedia-labs/skills/video-edit",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/genmedia-labs/skills/video-edit"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "hyperframes",
+   "id": "skills:heygen-com/hyperframes/hyperframes",
+   "last_seen": null,
+   "project_types": [
+    "design"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/heygen-com/hyperframes/hyperframes"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "hyperframes-cli",
+   "id": "skills:heygen-com/hyperframes/hyperframes-cli",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/heygen-com/hyperframes/hyperframes-cli"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "codebase-design",
+   "id": "skills:mattpocock/skills/codebase-design",
+   "last_seen": null,
+   "project_types": [
+    "design"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/mattpocock/skills/codebase-design"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "domain-modeling",
+   "id": "skills:mattpocock/skills/domain-modeling",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/mattpocock/skills/domain-modeling"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "grill-me",
+   "id": "skills:mattpocock/skills/grill-me",
+   "last_seen": null,
+   "project_types": [
+    "design"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/mattpocock/skills/grill-me"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "setup-matt-pocock-skills",
+   "id": "skills:mattpocock/skills/setup-matt-pocock-skills",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/mattpocock/skills/setup-matt-pocock-skills"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "teach",
+   "id": "skills:mattpocock/skills/teach",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/mattpocock/skills/teach"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "systematic-debugging",
+   "id": "skills:obra/superpowers/systematic-debugging",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/obra/superpowers/systematic-debugging"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "test-driven-development",
+   "id": "skills:obra/superpowers/test-driven-development",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/obra/superpowers/test-driven-development"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "lark-doc",
+   "id": "skills:open.feishu.cn/lark-doc",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/site/open.feishu.cn/lark-doc"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "lark-markdown",
+   "id": "skills:open.feishu.cn/lark-markdown",
+   "last_seen": null,
+   "project_types": [
+    "documentation"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/site/open.feishu.cn/lark-markdown"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "lark-okr",
+   "id": "skills:open.feishu.cn/lark-okr",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/site/open.feishu.cn/lark-okr"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "lark-skill-maker",
+   "id": "skills:open.feishu.cn/lark-skill-maker",
+   "last_seen": null,
+   "project_types": [],
+   "source": "skills-sh",
+   "url": "https://skills.sh/site/open.feishu.cn/lark-skill-maker"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "supabase-postgres-best-practices",
+   "id": "skills:supabase/agent-skills/supabase-postgres-best-practices",
+   "last_seen": null,
+   "project_types": [
+    "data"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/supabase/agent-skills/supabase-postgres-best-practices"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "agent-browser",
+   "id": "skills:vercel-labs/agent-browser/agent-browser",
+   "last_seen": null,
+   "project_types": [
+    "agents",
+    "automation",
+    "web"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/vercel-labs/agent-browser/agent-browser"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "vercel-react-best-practices",
+   "id": "skills:vercel-labs/agent-skills/vercel-react-best-practices",
+   "last_seen": null,
+   "project_types": [
+    "web"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices"
+  },
+  {
+   "fingerprint_data": {},
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "find-skills",
+   "id": "skills:vercel-labs/skills/find-skills",
+   "last_seen": null,
+   "project_types": [
+    "agents",
+    "automation"
+   ],
+   "source": "skills-sh",
+   "url": "https://skills.sh/vercel-labs/skills/find-skills"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": true,
+    "online": true,
+    "vendor_id": 81
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "atria-dawn-preview:free",
+   "id": "unorouter:model:atria-dawn-preview:free",
+   "last_seen": null,
+   "project_types": [
+    "reasoning",
+    "text"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/atria-dawn-preview%3Afree"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": true,
+    "online": true,
+    "vendor_id": 396
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "axon-1.8-flash:free",
+   "id": "unorouter:model:axon-1.8-flash:free",
+   "last_seen": null,
+   "project_types": [
+    "reasoning",
+    "text"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/axon-1.8-flash%3Afree"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": true,
+    "online": true,
+    "vendor_id": 396
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "axon-1.8-lightning:free",
+   "id": "unorouter:model:axon-1.8-lightning:free",
+   "last_seen": null,
+   "project_types": [
+    "reasoning",
+    "text"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/axon-1.8-lightning%3Afree"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": true,
+    "online": true,
+    "vendor_id": 396
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "axon-1.8-pro:free",
+   "id": "unorouter:model:axon-1.8-pro:free",
+   "last_seen": null,
+   "project_types": [
+    "reasoning",
+    "text"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/axon-1.8-pro%3Afree"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 1
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "claude-opus-5.5",
+   "id": "unorouter:model:claude-opus-5.5",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/claude-opus-5.5"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 1
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "claude-sonnet-5-5",
+   "id": "unorouter:model:claude-sonnet-5-5",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/claude-sonnet-5-5"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 6
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "deepseek-v4.1-flash",
+   "id": "unorouter:model:deepseek-v4.1-flash",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/deepseek-v4.1-flash"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 3
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "gpt-6-luna",
+   "id": "unorouter:model:gpt-6-luna",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/gpt-6-luna"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 3
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "gpt-6-sol",
+   "id": "unorouter:model:gpt-6-sol",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/gpt-6-sol"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 3
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "gpt-image-2.5-flare",
+   "id": "unorouter:model:gpt-image-2.5-flare",
+   "last_seen": null,
+   "project_types": [
+    "image-generation",
+    "multimodal",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/gpt-image-2.5-flare"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 5
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "grok-4.7",
+   "id": "unorouter:model:grok-4.7",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/grok-4.7"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 393
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "jev-1.13",
+   "id": "unorouter:model:jev-1.13",
+   "last_seen": null,
+   "project_types": [
+    "text"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/jev-1.13"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 30
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "mimo-v2.6-flash",
+   "id": "unorouter:model:mimo-v2.6-flash",
+   "last_seen": null,
+   "project_types": [
+    "audio",
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "video",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/mimo-v2.6-flash"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 30
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "mimo-v2.6-pro",
+   "id": "unorouter:model:mimo-v2.6-pro",
+   "last_seen": null,
+   "project_types": [
+    "audio",
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "video",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/mimo-v2.6-pro"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": false,
+    "online": true,
+    "vendor_id": 23
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "qwen3.8-omni-flash",
+   "id": "unorouter:model:qwen3.8-omni-flash",
+   "last_seen": null,
+   "project_types": [
+    "audio",
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "video",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/qwen3.8-omni-flash"
+  },
+  {
+   "fingerprint_data": {
+    "is_free": true,
+    "online": true,
+    "vendor_id": 117
+   },
+   "first_seen": "2026-09-30T13:53:05.402256+00:00",
+   "headline": "space-bunny-alpha:free",
+   "id": "unorouter:model:space-bunny-alpha:free",
+   "last_seen": null,
+   "project_types": [
+    "multimodal",
+    "reasoning",
+    "text",
+    "tools",
+    "video",
+    "vision"
+   ],
+   "source": "unorouter-models",
+   "url": "https://unorouter.com/en/models/space-bunny-alpha%3Afree"
+  }
+ ],
+ "fixture_of": "data/project_evaluations.json",
+ "provenance": {
+  "generated_by": "scripts/build_project_evaluation_fixture.py",
+  "input_state_sha256": "cafebc6078366b6639c19f4b0a54cb46c3e1b39ff22e2b49fe29d6934971716c",
+  "note": "Bounded sanitized sample; regenerated after identity sanitization.",
+  "source_inventory_count": 1772
+ },
+ "result": {
+  "coverage": {
+   "discovery_count": 38,
+   "invalid_rows": [],
+   "inventory_replaced": false,
+   "shortlist_limit_per_project": 4,
+   "unreviewed_ids": [
+    "github:byoungd/up",
+    "github:colbymchenry/codegraph",
+    "github:composiohq/awesome-claude-skills",
+    "github:debpalash/voicestudio",
+    "github:dietrichgebert/ponytail",
+    "github:firebase/firebase-ios-sdk",
+    "github:harry0703/moneyprinterturbo",
+    "github:heygen-com/hyperframes",
+    "github:mattpocock/skills",
+    "github:modelcontextprotocol/servers",
+    "github:mvschwarz/openrig",
+    "github:nawfalmotii79/plfm_radar",
+    "github:nvidia/openshell",
+    "github:openclaw/openclaw",
+    "github:t8y2/dbx",
+    "skills:anthropics/skills/frontend-design",
+    "skills:flowkit-labs/skills/reddit-automation",
+    "skills:genmedia-labs/skills/video-edit",
+    "skills:heygen-com/hyperframes/hyperframes",
+    "skills:heygen-com/hyperframes/hyperframes-cli",
+    "skills:mattpocock/skills/grill-me",
+    "skills:mattpocock/skills/setup-matt-pocock-skills",
+    "skills:mattpocock/skills/teach",
+    "skills:open.feishu.cn/lark-doc",
+    "skills:open.feishu.cn/lark-markdown",
+    "skills:open.feishu.cn/lark-okr",
+    "skills:open.feishu.cn/lark-skill-maker",
+    "skills:vercel-labs/skills/find-skills"
+   ]
+  },
+  "evaluated_at": "2026-10-01T04:45:25+00:00",
+  "groups": {
+   "data-ai": {
+    "deferred": [
+     {
+      "axes": {
+       "adoption_safety": 1,
+       "problem_fit": 2,
+       "stack_fit": 2
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "MCP/hooks, runtime support and sandbox isolation require separate review.",
+       "Never treat a routing hook as proof of safety; provider charges and support terms are unknown."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "github-trending",
+        "summary": null,
+        "url": "https://github.com/mksglu/context-mode"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "mksglu/context-mode",
+      "id": "github:mksglu/context-mode",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Review hook scope and data retention, then measure context size on representative tools in an isolated approved harness.",
+      "reason": "Inspect bounded tool-output handling for data/AI agent sessions; vendor context-reduction claims are not measured here.",
+      "score": 5,
+      "source_urls": [
+       "https://github.com/mksglu/context-mode"
+      ],
+      "support": "unknown"
+     }
+    ],
+    "excluded": [
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "A browser task and isolated credential policy must be specified before adopting automation into a data pipeline."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/vercel-labs/agent-browser/agent-browser"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "agent-browser",
+      "id": "skills:vercel-labs/agent-browser/agent-browser",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "A browser task and isolated credential policy must be specified before adopting automation into a data pipeline.",
+      "source_urls": [
+       "https://skills.sh/vercel-labs/agent-browser/agent-browser"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "No React/Next.js interface requirement established for the data/AI pipeline."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "vercel-react-best-practices",
+      "id": "skills:vercel-labs/agent-skills/vercel-react-best-practices",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "No React/Next.js interface requirement established for the data/AI pipeline.",
+      "source_urls": [
+       "https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices"
+      ],
+      "support": "unknown"
+     }
+    ],
+    "project": "Data/AI: database performance, retrieval and model development.",
+    "shortlist": [
+     {
+      "axes": {
+       "adoption_safety": 3,
+       "problem_fit": 3,
+       "stack_fit": 3
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Conditional on PostgreSQL; not portable SQLite tuning.",
+       "Hosting, inference and support pricing were not checked; a license is not a free service entitlement."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/supabase/agent-skills/supabase-postgres-best-practices"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "supabase-postgres-best-practices",
+      "id": "skills:supabase/agent-skills/supabase-postgres-best-practices",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Use representative sanitized data and EXPLAIN plans; test migration rollback and tenant isolation.",
+      "reason": "Review SQL schema, query plans, connection exhaustion and row isolation for Postgres-backed data pipelines.",
+      "score": 9,
+      "source_urls": [
+       "https://skills.sh/supabase/agent-skills/supabase-postgres-best-practices"
+      ],
+      "support": "unknown"
+     },
+     {
+      "axes": {
+       "adoption_safety": 3,
+       "problem_fit": 3,
+       "stack_fit": 2
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Guidance requires manual adaptation to the local harness; not a runtime dependency.",
+       "Agent inference charges and commercial support terms were not checked."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/obra/superpowers/test-driven-development"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "test-driven-development",
+      "id": "skills:obra/superpowers/test-driven-development",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Author a project regression test, observe RED then GREEN; measure runtime separately.",
+      "reason": "Test ETL schema contracts, retrieval evaluation fixtures and model adapter failure paths before pipeline changes.",
+      "score": 8,
+      "source_urls": [
+       "https://skills.sh/obra/superpowers/test-driven-development"
+      ],
+      "support": "unknown"
+     },
+     {
+      "axes": {
+       "adoption_safety": 1,
+       "problem_fit": 3,
+       "stack_fit": 3
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Windows/Python wheel, accelerator and driver compatibility are unverified.",
+       "Compute, model/data licenses and support costs remain unknown."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "github-trending",
+        "summary": null,
+        "url": "https://github.com/pytorch/pytorch"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "pytorch/pytorch",
+      "id": "github:pytorch/pytorch",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "With separate approval, validate a pinned wheel, CPU smoke test and reproducible target-model memory/latency measurement.",
+      "reason": "Candidate tensor/autograd runtime for local model-development experiments, not an inference-provider availability check.",
+      "score": 7,
+      "source_urls": [
+       "https://github.com/pytorch/pytorch"
+      ],
+      "support": "unknown"
+     },
+     {
+      "axes": {
+       "adoption_safety": 1,
+       "problem_fit": 3,
+       "stack_fit": 3
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Repository description is a self-reported retrieval approach, not benchmark evidence.",
+       "External model credentials, token charges, document privacy and provider compatibility need review."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "github-trending",
+        "summary": null,
+        "url": "https://github.com/VectifyAI/PageIndex"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "VectifyAI/PageIndex",
+      "id": "github:vectifyai/pageindex",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Build a labeled document/question set and compare citation accuracy, token cost and latency against the current baseline.",
+      "reason": "Evaluate document-tree retrieval as an alternative for structured long-document RAG with page-level evidence.",
+      "score": 7,
+      "source_urls": [
+       "https://github.com/VectifyAI/PageIndex"
+      ],
+      "support": "unknown"
+     }
+    ]
+   },
+   "desktop-app": {
+    "deferred": [],
+    "excluded": [
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "An agent routing hook is not a desktop-app runtime dependency and must not be placed on the transaction path."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "github-trending",
+        "summary": null,
+        "url": "https://github.com/mksglu/context-mode"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "mksglu/context-mode",
+      "id": "github:mksglu/context-mode",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "An agent routing hook is not a desktop-app runtime dependency and must not be placed on the transaction path.",
+      "source_urls": [
+       "https://github.com/mksglu/context-mode"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "No model-training need established for transactional desktop application; a GPU runtime adds unrelated deployment complexity."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "github-trending",
+        "summary": null,
+        "url": "https://github.com/pytorch/pytorch"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "pytorch/pytorch",
+      "id": "github:pytorch/pytorch",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "No model-training need established for transactional desktop application; a GPU runtime adds unrelated deployment complexity.",
+      "source_urls": [
+       "https://github.com/pytorch/pytorch"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "Long-document retrieval does not solve receipt transaction or Qt lifecycle correctness."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "github-trending",
+        "summary": null,
+        "url": "https://github.com/VectifyAI/PageIndex"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "VectifyAI/PageIndex",
+      "id": "github:vectifyai/pageindex",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "Long-document retrieval does not solve receipt transaction or Qt lifecycle correctness.",
+      "source_urls": [
+       "https://github.com/VectifyAI/PageIndex"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "The desktop app uses SQLAlchemy, but its PostgreSQL backend is unconfirmed; Postgres-specific tuning is conditional, not a migration recommendation."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/supabase/agent-skills/supabase-postgres-best-practices"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "supabase-postgres-best-practices",
+      "id": "skills:supabase/agent-skills/supabase-postgres-best-practices",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "The desktop app uses SQLAlchemy, but its PostgreSQL backend is unconfirmed; Postgres-specific tuning is conditional, not a migration recommendation.",
+      "source_urls": [
+       "https://skills.sh/supabase/agent-skills/supabase-postgres-best-practices"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "Browser automation cannot exercise native PySide6 widgets, receipt devices or payment terminals."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/vercel-labs/agent-browser/agent-browser"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "agent-browser",
+      "id": "skills:vercel-labs/agent-browser/agent-browser",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "Browser automation cannot exercise native PySide6 widgets, receipt devices or payment terminals.",
+      "source_urls": [
+       "https://skills.sh/vercel-labs/agent-browser/agent-browser"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "React/Next.js rendering guidance is not a native PySide6/QSS implementation."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "vercel-react-best-practices",
+      "id": "skills:vercel-labs/agent-skills/vercel-react-best-practices",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "React/Next.js rendering guidance is not a native PySide6/QSS implementation.",
+      "source_urls": [
+       "https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices"
+      ],
+      "support": "unknown"
+     }
+    ],
+    "project": "Desktop application: native PySide6, transactional correctness and operator UX.",
+    "shortlist": [
+     {
+      "axes": {
+       "adoption_safety": 3,
+       "problem_fit": 3,
+       "stack_fit": 2
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Conceptual guidance must be mapped to existing SQLAlchemy session boundaries.",
+       "Does not prove fiscal or payment compliance."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/mattpocock/skills/domain-modeling"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "domain-modeling",
+      "id": "skills:mattpocock/skills/domain-modeling",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Review state transitions and add rollback, rounding and partial-payment tests.",
+      "reason": "Clarify order, bill, payment and refund boundaries before changing split/merge table semantics.",
+      "score": 8,
+      "source_urls": [
+       "https://skills.sh/mattpocock/skills/domain-modeling"
+      ],
+      "support": "unknown"
+     },
+     {
+      "axes": {
+       "adoption_safety": 3,
+       "problem_fit": 3,
+       "stack_fit": 2
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Workflow guidance, not a Qt or payment integration.",
+       "Reproduce with a disposable database; never modify live receipts."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/obra/superpowers/systematic-debugging"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "systematic-debugging",
+      "id": "skills:obra/superpowers/systematic-debugging",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Capture a failing split-bill or signal-lifecycle test and prove rollback and Decimal invariants.",
+      "reason": "Trace transaction ownership, detached ORM objects and duplicated Qt signals before fixing order-screen failures.",
+      "score": 8,
+      "source_urls": [
+       "https://skills.sh/obra/superpowers/systematic-debugging"
+      ],
+      "support": "unknown"
+     },
+     {
+      "axes": {
+       "adoption_safety": 3,
+       "problem_fit": 3,
+       "stack_fit": 2
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Guidance requires manual adaptation to the local harness; not a runtime dependency.",
+       "Agent inference charges and commercial support terms were not checked."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/obra/superpowers/test-driven-development"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "test-driven-development",
+      "id": "skills:obra/superpowers/test-driven-development",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Author a project regression test, observe RED then GREEN; measure runtime separately.",
+      "reason": "Regression-first work on Decimal totals, split bills and transaction rollback; does not validate a payment terminal.",
+      "score": 8,
+      "source_urls": [
+       "https://skills.sh/obra/superpowers/test-driven-development"
+      ],
+      "support": "unknown"
+     }
+    ]
+   },
+   "vision-app": {
+    "deferred": [],
+    "excluded": [
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "Context routing cannot establish camera latency or safe OS actions."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "github-trending",
+        "summary": null,
+        "url": "https://github.com/mksglu/context-mode"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "mksglu/context-mode",
+      "id": "github:mksglu/context-mode",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "Context routing cannot establish camera latency or safe OS actions.",
+      "source_urls": [
+       "https://github.com/mksglu/context-mode"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "No new landmark-training need established; replacing the detector would require replay parity and latency evidence."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "github-trending",
+        "summary": null,
+        "url": "https://github.com/pytorch/pytorch"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "pytorch/pytorch",
+      "id": "github:pytorch/pytorch",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "No new landmark-training need established; replacing the detector would require replay parity and latency evidence.",
+      "source_urls": [
+       "https://github.com/pytorch/pytorch"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "Document retrieval is outside the real-time detector/action loop."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "github-trending",
+        "summary": null,
+        "url": "https://github.com/VectifyAI/PageIndex"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "VectifyAI/PageIndex",
+      "id": "github:vectifyai/pageindex",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "Document retrieval is outside the real-time detector/action loop.",
+      "source_urls": [
+       "https://github.com/VectifyAI/PageIndex"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "No PostgreSQL requirement in the camera/snapshot/action path."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/supabase/agent-skills/supabase-postgres-best-practices"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "supabase-postgres-best-practices",
+      "id": "skills:supabase/agent-skills/supabase-postgres-best-practices",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "No PostgreSQL requirement in the camera/snapshot/action path.",
+      "source_urls": [
+       "https://skills.sh/supabase/agent-skills/supabase-postgres-best-practices"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "Browser automation is not a camera or native OS-action replay harness."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/vercel-labs/agent-browser/agent-browser"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "agent-browser",
+      "id": "skills:vercel-labs/agent-browser/agent-browser",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "Browser automation is not a camera or native OS-action replay harness.",
+      "source_urls": [
+       "https://skills.sh/vercel-labs/agent-browser/agent-browser"
+      ],
+      "support": "unknown"
+     },
+     {
+      "confidence": "low",
+      "confidence_reason": "Known project mismatch or unconfirmed prerequisite; no installed integration test.",
+      "constraints": [
+       "React component performance is not the Python camera/inference path."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "vercel-react-best-practices",
+      "id": "skills:vercel-labs/agent-skills/vercel-react-best-practices",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Confirm the project prerequisite before any adoption review.",
+      "reason": "React component performance is not the Python camera/inference path.",
+      "source_urls": [
+       "https://skills.sh/vercel-labs/agent-skills/vercel-react-best-practices"
+      ],
+      "support": "unknown"
+     }
+    ],
+    "project": "Vision application: camera snapshots, latency and safe OS input.",
+    "shortlist": [
+     {
+      "axes": {
+       "adoption_safety": 3,
+       "problem_fit": 3,
+       "stack_fit": 2
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Conceptual architecture review, not real-camera validation.",
+       "Preserve single timestamp, fresh accepted snapshot and neutral-release safety gates."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/mattpocock/skills/codebase-design"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "codebase-design",
+      "id": "skills:mattpocock/skills/codebase-design",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Prove detached frame bundles, loss reset and replay parity with fake camera/OS drivers.",
+      "reason": "Keep detector ownership, frozen frame snapshots and action routing as explicit boundaries rather than cross-frame getters.",
+      "score": 8,
+      "source_urls": [
+       "https://skills.sh/mattpocock/skills/codebase-design"
+      ],
+      "support": "unknown"
+     },
+     {
+      "axes": {
+       "adoption_safety": 3,
+       "problem_fit": 3,
+       "stack_fit": 2
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Not a detector or latency improvement.",
+       "Use fake camera and armed fake drivers; no unattended OS input."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/obra/superpowers/systematic-debugging"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "systematic-debugging",
+      "id": "skills:obra/superpowers/systematic-debugging",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Replay loss/reacquisition and neutral-release traces; verify zero unintended fake-driver calls.",
+      "reason": "Separate detector, immutable frame publication and OS-action consumers when tracing stale-tip or camera-retry failures.",
+      "score": 8,
+      "source_urls": [
+       "https://skills.sh/obra/superpowers/systematic-debugging"
+      ],
+      "support": "unknown"
+     },
+     {
+      "axes": {
+       "adoption_safety": 3,
+       "problem_fit": 3,
+       "stack_fit": 2
+      },
+      "confidence": "low",
+      "confidence_reason": "Discovery=unverified; official metadata=unverified; capability may be missing. Suitability is provisional; no installed integration test.",
+      "constraints": [
+       "Guidance requires manual adaptation to the local harness; not a runtime dependency.",
+       "Agent inference charges and commercial support terms were not checked."
+      ],
+      "cost": "unknown",
+      "evaluation_status": "metadata-only",
+      "evidence": {
+       "discovery": {
+        "checked_at": null,
+        "fields": {},
+        "first_seen": "2026-09-30T13:53:05.402256+00:00",
+        "semantics": "observed metadata; not capability or integration proof",
+        "source": "skills-sh",
+        "summary": null,
+        "url": "https://skills.sh/obra/superpowers/test-driven-development"
+       },
+       "official_metadata": {}
+      },
+      "freshness": {
+       "discovery": "unverified",
+       "official_metadata": "unverified"
+      },
+      "headline": "test-driven-development",
+      "id": "skills:obra/superpowers/test-driven-development",
+      "integration_tested": false,
+      "license": "unknown",
+      "next_validation": "Author a project regression test, observe RED then GREEN; measure runtime separately.",
+      "reason": "Write fake-camera and fake-OS-driver replays for stale snapshots and neutral-release gating before changing input routing.",
+      "score": 8,
+      "source_urls": [
+       "https://skills.sh/obra/superpowers/test-driven-development"
+      ],
+      "support": "unknown"
+     }
+    ]
+   }
+  },
+  "inventory_count": 86
+ }
+}

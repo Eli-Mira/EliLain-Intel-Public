@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EliLain Intel — Daily Digest {{ digest.report_date }}</title>
+<meta name="elilain-report-kind" content="daily-digest-v1">
+<meta name="elilain-generated-at" content="{{ digest.generated_at }}">
+<style>
+:root{
+  --bg:#f8f7f4;
+  --stone:#e9e6df;
+  --graphite:#1e2026;
+  --graphite-2:#2a2e38;
+  --text:#1a1c22;
+  --muted:#6b7280;
+  --rose:#c86b7a;
+  --rose-soft:#f2e9eb;
+  --border:#dfdad2;
+  --focus:#1a1c22;
+  --radius:14px;
+  --max:1200px;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--graphite);text-decoration:none}
+a:hover{text-decoration:underline}
+a.original-source{color:var(--rose);font-weight:600}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+header.top-nav{position:sticky;top:0;z-index:10;background:rgba(248,247,244,.85);backdrop-filter:saturate(120%) blur(8px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:12px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.brand{font-weight:700;letter-spacing:.2px}
+.nav-links{display:flex;gap:14px;font-size:14px;color:var(--muted)}
+.nav-links a{color:var(--muted)}
+.nav-links a[aria-current="page"]{color:var(--text);font-weight:600}
+main{max-width:var(--max);margin:0 auto;padding:24px 16px 64px}
+h1{font-size:clamp(22px,3vw,32px);line-height:1.2;margin:24px 0 12px}
+.muted{color:var(--muted);font-size:14px}
+.grid{display:grid;gap:16px}
+@media(min-width:900px){.grid{grid-template-columns:repeat(12,1fr)}}
+.card{grid-column:auto;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+@media(min-width:900px){.card{grid-column:span 4}}
+.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--rose-soft);color:#7a3a46}
+.digest-item{border-left:3px solid var(--stone);padding-left:12px}
+.digest-item h3{margin:0 0 4px;font-size:18px}
+.fields{display:grid;grid-template-columns:1fr;gap:6px;font-size:14px}
+.field-label{font-weight:600;color:var(--muted);min-width:80px}
+.field-row{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start}
+.meta-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:12px 0 20px;color:var(--muted);font-size:13px}
+.covers{display:grid;gap:12px}
+@media(min-width:900px){.covers{grid-template-columns:repeat(3,1fr)}}
+.source-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--border)}
+.source-row:last-child{border-bottom:none}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.filters input,.filters select{padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:#fff;font:inherit}
+.history table{width:100%;border-collapse:collapse;font-size:14px}
+.history th,.history td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--border)}
+.loading,.error,.empty{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--muted)}
+.error{color:#a33}
+section{margin-top:28px}
+.skip{position:absolute;left:-999px;top:auto}
+.skip:focus{left:12px;top:12px;background:#fff;padding:8px;border-radius:8px;z-index:100}
+@media(max-width:480px){.meta-bar{flex-direction:column;align-items:flex-start}}
+/* 200% zoom friendliness */
+html{font-size:100%}
+.card{min-width:0;overflow-wrap:anywhere}
+main,footer{overflow-wrap:anywhere}
+.nav-links{flex-wrap:wrap}
+.filters input,.filters select{min-width:0;max-width:100%}
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+<header class="top-nav" role="banner">
+  <div class="nav-inner">
+    <div class="brand">EliLain Intel</div>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#daily-digest" aria-current="page">Daily Digest</a>
+      <a href="#discoveries">Discoveries</a>
+      <a href="#source-health">Source Health</a>
+      <a href="#public-scope">Public Scope</a>
+      <a href="#report-history">History</a>
+    </nav>
+    <div class="muted" style="margin-left:auto;font-size:12px">Report {{ digest.report_date }}</div>
+  </div>
+</header>
+
+<main id="main">
+<h1>Daily Digest <span class="muted">— {{ digest.report_date }}</span></h1>
+<div class="meta-bar">
+  <div>Generated <time datetime="{{ digest.generated_at }}">{{ digest.generated_at }}</time></div>
+  <div>Sources {{ digest.sources|length }} · Items {{ digest.entries|length }}</div>
+  <div class="badge">Public selection</div>
+</div>
+
+<section id="daily-digest" aria-label="Daily digest">
+  <div class="grid">
+    {% if digest.entries %}
+      {% for item in digest.entries %}
+      <article class="card digest-item"
+        data-id="{{ item.id }}"
+        data-source="{{ item.source_id }}"
+        data-source-url="{{ item.source_url }}"
+        data-verified-at="{{ item.link_verification.checked_at }}"
+        data-observed-at="{{ item.observed_at }}">
+        <div class="field-row"><div class="field-label">Name</div><div>{{ item.name }}</div></div>
+        <div class="field-row"><div class="field-label">What</div><div>{{ item.what }}</div></div>
+        <div class="field-row"><div class="field-label">Why</div><div>{{ item.why|default('unknown') }}</div></div>
+        <div class="field-row"><div class="field-label">Free?</div><div>{{ item.free.status }}{% if item.free.detail %} — {{ item.free.detail }}{% endif %}</div></div>
+        <div class="field-row"><div class="field-label">API?</div><div>{{ item.api.status }}{% if item.api.detail %} — {{ item.api.detail }}{% endif %}</div></div>
+        <div class="field-row"><div class="field-label">Source</div><div><a class="original-source" href="{{ item.source_url }}" rel="noopener noreferrer" target="_blank">original link</a></div></div>
+        <div class="muted" style="margin-top:10px;font-size:12px">
+          Category {{ item.category }} · Score {{ item.score }} · Verified {{ item.link_verification.status }}
+        </div>
+        {% if item.scoring_breakdown %}
+        <details style="margin-top:8px"><summary>Explainable score</summary>
+          <pre style="white-space:pre-wrap;font:inherit">{{ item.scoring_breakdown }}</pre>
+        </details>
+        {% endif %}
+      </article>
+      {% endfor %}
+    {% else %}
+      <div class="card empty">No items selected for this digest.</div>
+    {% endif %}
+  </div>
+</section>
+
+<section id="discoveries" aria-label="Discoveries">
+  <h2>Discoveries</h2>
+  <div class="filters" role="search" aria-label="Filter discoveries">
+    <input type="search" id="discovery-search" placeholder="Search name, what, why" aria-controls="discovery-list">
+    <select id="discovery-category" aria-controls="discovery-list"><option value="">All categories</option></select>
+    <select id="discovery-source" aria-controls="discovery-list"><option value="">All sources</option></select>
+  </div>
+  <noscript><p class="muted">Filters require JavaScript. All items shown below.</p></noscript>
+  <div id="discovery-empty" class="empty" hidden>No discoveries match filters.</div>
+  <div class="grid" id="discovery-list">
+    {% for item in digest.entries %}
+    <article class="card digest-item" data-id="{{ item.id }}" data-category="{{ item.category }}" data-source="{{ item.source_id }}">
+      <strong>{{ item.name }}</strong>
+      <div class="muted">{{ item.what }}</div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="source-health" aria-label="Source health">
+  <h2>Source coverage health</h2>
+  <div class="covers">
+    {% for s in digest.sources %}
+    <div class="card">
+      <div style="display:flex;justify-content:space-between"><strong>{{ s.name }}</strong><span class="muted">{{ s.adapter }}</span></div>
+      <div class="muted">Enabled: {{ s.enabled }} · ID: {{ s.id }}</div>
+      {% if s.status is defined %}
+      <div class="muted">Status: {{ s.status }} · Checked: {{ s.checked_at or 'N/A' }} · Count: {{ s.count or 0 }} {% if s.error_code %}· Error: {{ s.error_code }}{% endif %}</div>
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="card empty">No sources.</div>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="public-scope" aria-label="Public scope">
+  <h2>Public scope</h2>
+  <div class="card">
+    <p class="muted">This public digest shows only selected items. Private raw inventory, credentials, and probe details are not exposed. Links are verified original sources only.</p>
+    <p class="muted">Categories: free-api, models, agents, mcp, skills, devtools, news.</p>
+  </div>
+</section>
+
+<section id="report-history" aria-label="Report history">
+  <h2>Report history</h2>
+  <div class="card history">
+    <table>
+      <thead><tr><th>Date</th><th>Generated</th><th>Items</th></tr></thead>
+      <tbody>
+        {% for r in history.reports %}
+        <tr><td>{{ r.report_date }}</td><td>{{ r.generated_at }}</td><td>{{ r.selected_count }}</td></tr>
+        {% else %}
+        <tr><td colspan="3" class="empty">No history.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p class="muted">Fresh public-source snapshot · Generated at {{ digest.generated_at }}</p>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+  const list = document.getElementById('discovery-list');
+  if(!list) return;
+  const items = Array.from(list.querySelectorAll('.digest-item'));
+  const search = document.getElementById('discovery-search');
+  const cat = document.getElementById('discovery-category');
+  const src = document.getElementById('discovery-source');
+  const empty = document.getElementById('discovery-empty');
+  const records = items.map(el => ({
+    el,
+    text: el.innerText.toLowerCase(),
+    category: el.dataset.category||'',
+    source: el.dataset.source||''
+  }));
+  const fill = (sel, vals) => {
+    const set = Array.from(new Set(vals.filter(Boolean))).sort();
+    set.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); });
+  };
+  fill(cat, records.map(r=>r.category));
+  fill(src, records.map(r=>r.source));
+  const apply = () => {
+    const t=(search.value||'').toLowerCase();
+    let vis=0;
+    records.forEach(r=>{
+      const ok = r.text.includes(t) && (!cat.value || r.category===cat.value) && (!src.value || r.source===src.value);
+      r.el.hidden=!ok;
+      if(ok) vis++;
+    });
+    if(empty){ empty.hidden = vis>0 || records.length===0; }
+  };
+  search?.addEventListener('input', apply);
+  cat?.addEventListener('change', apply);
+  src?.addEventListener('change', apply);
+  apply();
+})();
+</script>
+</body>
+</html>

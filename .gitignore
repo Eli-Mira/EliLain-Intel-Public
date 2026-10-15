@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual envs
+venv/
+env/
+.venv/
+
+# Data
+data/
+reports/
+.cache/
+*.db
+*.json
+!reports/.gitkeep
+
+# Regenerated each run, never committed
+public/
+
+# ...but dated verification evidence and generated test fixtures are tracked
+!docs/
+!docs/*.json
+!tests/fixtures/
+!tests/fixtures/*.json
+
+# Env
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Local CLI state
+a.local/
+.local/

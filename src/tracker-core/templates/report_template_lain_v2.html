@@ -1,0 +1,1009 @@
+{% raw %}<!--
+  ENHANCED RESULTS TEMPLATE — "lain-v2" theme
+  ============================================================================
+  Adds: match scores, confidence, health scores, badges, provenance labels,
+        comparison matrix, saturation metrics, and enhanced filtering.
+  ============================================================================
+-->
+{% endraw %}
+{% macro safe_link(url, label) -%}
+{% set href = url|safe_url %}{% if href %}<a href="{{ href }}" rel="noopener noreferrer">{{ label }}</a>{% else %}{{ label }}{% endif %}
+{%- endmacro %}
+{% macro provenance_badge(type) -%}
+{% if type == 'fact' %}<span class="provenance fact">FACT</span>
+{% elif type == 'inference' %}<span class="provenance inference">INFERENCE</span>
+{% else %}<span class="provenance community">COMMUNITY</span>
+{% endif %}
+{%- endmacro %}
+{% macro best_badge(score, category) -%}
+{% set badge = '' %}
+{% if score >= 90 %}{% set badge = 'BEST OVERALL' %}{% endif %}
+{% if score >= 80 and 'open-source' in (category or '').lower() %}{% set badge = 'BEST OPEN SOURCE' %}{% endif %}
+{% if score >= 75 and 'local' in (category or '').lower() %}{% set badge = 'BEST LOCAL' %}{% endif %}
+{% if score >= 70 and badge == '' %}{% set badge = 'TOP PICK' %}{% endif %}
+{% if badge %}<span class="best-badge">{{ badge }}</span>{% endif %}
+{%- endmacro %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intel Report — {{ report_date }}</title>
+<style>
+  :root {
+    --bg: #05070a;
+    --panel: #0a0e12;
+    --card: #0d1117;
+    --border: #1c2a2c;
+    --border-dim: #151f21;
+    --text: #d8f4f2;
+    --text-dim: #5f7a7a;
+    --text-muted: #3d5555;
+    --cyan: #6fffe9;
+    --cyan-dim: rgba(111, 255, 233, 0.1);
+    --green: #3fb950;
+    --yellow: #d29922;
+    --red: #f85149;
+    --blue: #58a6ff;
+    --purple: #a371f7;
+    --font-mono: ui-monospace, 'Courier New', Consolas, monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --radius: 6px;
+    --radius-lg: 10px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+  }
+
+  /* Header */
+  header.report-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  header.report-head h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  header.report-head .meta {
+    margin-left: auto;
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  /* Sections */
+  section.tracker {
+    margin-bottom: 40px;
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-dim);
+  }
+  .section-head .cmd {
+    font-size: 11px;
+    color: var(--cyan);
+    opacity: 0.8;
+  }
+  .section-head h2 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Meta lines */
+  .meta {
+    color: var(--text-dim);
+    font-size: 12px;
+    margin: 0 0 12px 0;
+  }
+
+  /* Discovery filters */
+  .discovery-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .filter-field label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .filter-field input,
+  .filter-field select {
+    width: 100%;
+    padding: 6px 10px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .filter-field input:focus,
+  .filter-field select:focus {
+    outline: none;
+    border-color: var(--cyan);
+  }
+
+  /* Inventory summary stats */
+  .inventory-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .stat-value {
+    font-size: 16px;
+    color: var(--cyan);
+    font-weight: 500;
+  }
+  .saturation-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: var(--cyan-dim);
+    border: 1px solid var(--cyan);
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--cyan);
+  }
+  .saturation-indicator.low { background: rgba(63,185,80,0.1); border-color: var(--green); color: var(--green); }
+  .saturation-indicator.medium { background: rgba(210,153,34,0.1); border-color: var(--yellow); color: var(--yellow); }
+
+  /* Discovery list */
+  .discovery-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .discovery-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    transition: border-color 0.15s ease;
+  }
+  .discovery-item:hover {
+    border-color: var(--cyan);
+  }
+  .discovery-item.top-ranked {
+    border-left: 3px solid var(--cyan);
+  }
+
+  /* Item header */
+  .item-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .item-rank {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 28px;
+  }
+  .item-main {
+    flex: 1;
+    min-width: 0;
+  }
+  .item-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .item-name a {
+    color: var(--cyan);
+    text-decoration: none;
+  }
+  .item-name a:hover {
+    text-decoration: underline;
+  }
+  .item-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .item-category {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--cyan-dim);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .item-source {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .best-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    background: linear-gradient(135deg, var(--cyan), var(--blue));
+    border-radius: 12px;
+    color: var(--bg);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Score panel */
+  .score-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 12px;
+    margin: 12px 0;
+    padding: 12px;
+    background: var(--panel);
+    border-radius: var(--radius);
+  }
+  .score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .score-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .score-value {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .score-value.high { color: var(--green); }
+  .score-value.medium { color: var(--yellow); }
+  .score-value.low { color: var(--red); }
+  .score-bar {
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    background: var(--cyan);
+    border-radius: 2px;
+  }
+
+  /* Description */
+  .item-desc {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 8px 0;
+    line-height: 1.5;
+  }
+
+  /* Tags row */
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-dim);
+  }
+  .tag.free { border-color: var(--green); color: var(--green); }
+  .tag.oss { border-color: var(--purple); color: var(--purple); }
+  .tag.local { border-color: var(--blue); color: var(--blue); }
+  .tag.self-hosted { border-color: var(--cyan); color: var(--cyan); }
+
+  /* Provenance */
+  .provenance {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .provenance.fact { background: rgba(63,185,80,0.15); color: var(--green); }
+  .provenance.inference { background: rgba(88,166,255,0.15); color: var(--blue); }
+  .provenance.community { background: rgba(163,113,247,0.15); color: var(--purple); }
+
+  /* Evidence */
+  .evidence {
+    margin-top: 12px;
+    border-top: 1px solid var(--border-dim);
+    padding-top: 12px;
+  }
+  .evidence summary {
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    list-style: none;
+  }
+  .evidence summary::before {
+    content: "▶ ";
+    font-size: 10px;
+  }
+  .evidence[open] summary::before {
+    content: "▼ ";
+  }
+  .evidence-list {
+    list-style: none;
+    margin: 8px 0 0 0;
+    padding: 0;
+  }
+  .evidence-list li {
+    font-size: 12px;
+    color: var(--text-dim);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border-dim);
+  }
+  .evidence-list li:last-child {
+    border-bottom: none;
+  }
+  .evidence-list .item-source {
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  /* Comparison section */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 12px;
+  }
+  .comparison-table th,
+  .comparison-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-dim);
+  }
+  .comparison-table th {
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+  .comparison-table td {
+    color: var(--text-dim);
+  }
+  .comparison-table tr:hover td {
+    background: var(--panel);
+  }
+
+  /* Empty state */
+  .empty-state {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  .empty-state::before {
+    content: "⊘";
+    font-size: 32px;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+
+  /* Loading state */
+  .loading-state {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-dim);
+  }
+  .loading-spinner {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-top-color: var(--cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Error state */
+  .error-state {
+    padding: 20px;
+    background: rgba(248, 81, 73, 0.1);
+    border: 1px solid var(--red);
+    border-radius: var(--radius);
+    color: var(--red);
+    margin: 16px 0;
+  }
+
+  /* Degraded banner */
+  .degraded-banner {
+    padding: 12px 16px;
+    background: rgba(210, 153, 34, 0.1);
+    border: 1px solid var(--yellow);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .degraded-banner::before {
+    content: "⚠";
+    font-size: 16px;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .wrap { padding: 24px 16px 48px; }
+    .score-panel { grid-template-columns: repeat(2, 1fr); }
+    .discovery-filters { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <header class="report-head">
+    <div>
+      <h1>Intel Report</h1>
+      <div class="meta">Generated {{ generated_at }}</div>
+    </div>
+    {% if saturation_report %}
+    <div class="saturation-indicator {{ saturation_level }}">
+      <span>●</span> {{ saturation_message }}
+    </div>
+    {% endif %}
+  </header>
+
+  <!-- Degraded state banner -->
+  {% if providers_degraded %}
+  <div class="degraded-banner">
+    <span>{{ degraded_message|default('Some providers are degraded. Results may be incomplete.') }}</span>
+  </div>
+  {% endif %}
+
+  <!-- Section: Top Recommendations -->
+  <section class="tracker recommendations" id="recommendations" aria-label="Top recommendations">
+    <div class="section-head">
+      <span class="cmd">$ top-picks</span>
+      <h2>Recommended</h2>
+    </div>
+
+    {% if top_picks %}
+    <!-- Saturation info -->
+    {% if saturation_metrics %}
+    <div class="inventory-stats">
+      <div class="stat-item">
+        <span class="stat-label">Saturation</span>
+        <span class="stat-value">{{ saturation_metrics.saturation_percent }}%</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Top-K Stability</span>
+        <span class="stat-value">{{ saturation_metrics.ranking_stability }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">New Candidates</span>
+        <span class="stat-value">{{ saturation_metrics.new_unique_high_quality }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Confidence</span>
+        <span class="stat-value">{{ saturation_metrics.confidence_improvement|round(2) }}</span>
+      </div>
+    </div>
+    {% endif %}
+
+    <ul class="discovery-list" id="recommendation-list">
+      {% for item in top_picks %}
+      <li class="discovery-item{% if loop.first %} top-ranked{% endif %}"
+          data-id="{{ item.id }}"
+          data-score="{{ item.score|default(0) }}"
+          data-category="{{ item.category|default('') }}"
+          data-source="{{ item.source_id|default('') }}"
+          data-confidence="{{ item.confidence|default('medium') }}">
+        <div class="item-header">
+          <span class="item-rank">#{{ loop.index }}</span>
+          <div class="item-main">
+            <div class="item-name">
+              {{ safe_link(item.url, item.name) }}
+              {% if item.best_label %}<span class="best-badge">{{ item.best_label }}</span>{% endif %}
+              {{ provenance_badge(item.provenance|default('fact')) }}
+            </div>
+            <div class="item-meta-row">
+              <span class="item-category">{{ item.category|default('uncategorized') }}</span>
+              <span class="item-source">{{ item.source_id|default('unknown') }}</span>
+              {% if item.license %}<span class="tag oss">{{ item.license }}</span>{% endif %}
+              {% if item.free.status == 'open-source' %}<span class="tag free">Open Source</span>{% endif %}
+              {% if item.free.status == 'self-hosted' %}<span class="tag self-hosted">Self-Hosted</span>{% endif %}
+              {% if item.free.status == 'local' %}<span class="tag local">Local</span>{% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Score Panel -->
+        <div class="score-panel">
+          <div class="score-item">
+            <span class="score-label">Match</span>
+            <span class="score-value {{ 'high' if item.score >= 80 else 'medium' if item.score >= 60 else 'low' }}">{{ item.score|default(0) }}</span>
+            <div class="score-bar"><div class="score-bar-fill" style="width: {{ item.score|default(0) }}%"></div></div>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Confidence</span>
+            <span class="score-value {{ 'high' if item.confidence >= 0.7 else 'medium' if item.confidence >= 0.4 else 'low' }}">{{ (item.confidence|default(0)*100)|round(0)|int }}%</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Health</span>
+            <span class="score-value {{ 'high' if item.health_score >= 70 else 'medium' if item.health_score >= 40 else 'low' }}">{{ item.health_score|default(0) }}</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Activity</span>
+            <span class="score-value" title="{{ item.last_activity|default('unknown') }}">{{ item.last_activity_label|default('unknown') }}</span>
+          </div>
+        </div>
+
+        <!-- Why it matches -->
+        {% if item.why_matches %}
+        <div class="item-desc"><strong>Why:</strong> {{ item.why_matches }}</div>
+        {% endif %}
+
+        <!-- Missing features -->
+        {% if item.missing_features %}
+        <div class="item-desc"><strong>Missing:</strong> {{ item.missing_features|join(', ') }}</div>
+        {% endif %}
+
+        <!-- Tags -->
+        <div class="tags-row">
+          {% if item.platforms %}
+          {% for platform in item.platforms %}
+          <span class="tag">{{ platform }}</span>
+          {% endfor %}
+          {% endif %}
+          {% if item.deployment %}
+          <span class="tag">{{ item.deployment }}</span>
+          {% endif %}
+          {% if item.pricing %}
+          <span class="tag">{{ item.pricing }}</span>
+          {% endif %}
+        </div>
+
+        <!-- Evidence -->
+        {% if item.evidence %}
+        <details class="evidence">
+          <summary>Evidence ({{ item.evidence|length }})</summary>
+          <ul class="evidence-list">
+            {% for entry in item.evidence %}
+            <li>
+              {% if entry.type == 'fact' %}{{ provenance_badge('fact') }}
+              {% elif entry.type == 'community' %}{{ provenance_badge('community') }}{% endif %}
+              {% if entry.label %}<span class="item-source">{{ entry.label }}:</span> {% endif %}
+              {{ entry.text }}
+            </li>
+            {% endfor %}
+          </ul>
+        </details>
+        {% endif %}
+
+        <!-- Ranking comparison -->
+        {% if item.ranked_above %}
+        <div class="item-desc" style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+          <strong>Ranks above:</strong> {{ item.ranked_above|join(', ') }}
+        </div>
+        {% endif %}
+        {% if item.ranked_below %}
+        <div class="item-desc" style="font-size: 11px; color: var(--text-muted);">
+          <strong>Ranks below:</strong> {{ item.ranked_below|join(', ') }}
+        </div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty-state">No recommendations available.</div>
+    {% endif %}
+  </section>
+
+  <!-- Section: Full Inventory -->
+  <section class="tracker discoveries" id="discoveries" aria-label="Tool and model discoveries">
+    <div class="section-head">
+      <span class="cmd">$ github-discovery</span>
+      <h2>Discoveries</h2>
+    </div>
+
+    <p class="meta" id="discovery-result-count" role="status" aria-live="polite" aria-controls="discovery-inventory">
+      {{ tool_items|length }} discoveries collected — open the inventory below to browse and filter
+    </p>
+    <p class="meta" id="discovery-empty" hidden>No discoveries match these filters.</p>
+    <noscript><p class="meta">Filters require JavaScript; every collected row is still reachable below, in the collapsible inventory archive.</p></noscript>
+
+    <!-- Enhanced filters -->
+    <div class="discovery-filters" role="search" aria-label="Filter tool and model discoveries">
+      <div class="filter-field">
+        <label for="discovery-search">Search</label>
+        <input id="discovery-search" type="search" placeholder="Name, owner, topic or metadata" aria-controls="discovery-list" disabled>
+      </div>
+      <div class="filter-field">
+        <label for="discovery-category">Category</label>
+        <select id="discovery-category" aria-controls="discovery-list" disabled>
+          <option value="">All categories</option>
+          {% for cat in available_categories %}<option value="{{ cat }}">{{ cat }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="discovery-source">Source</label>
+        <select id="discovery-source" aria-controls="discovery-list" disabled>
+          <option value="">All sources</option>
+          {% for src in available_sources %}<option value="{{ src }}">{{ src }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="discovery-sort">Sort by</label>
+        <select id="discovery-sort" aria-controls="discovery-list" aria-describedby="discovery-sort-basis" disabled>
+          <option value="score">Match Score</option>
+          <option value="confidence">Confidence</option>
+          <option value="activity">Activity</option>
+          <option value="newest">Newest</option>
+          <option value="open-source">Open Source</option>
+          <option value="free">Free</option>
+          <option value="self-hosted">Self-Hosted</option>
+          <option value="local">Local/Offline</option>
+          <option value="identity">Source/Identity</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="discovery-platform">Platform</label>
+        <select id="discovery-platform" aria-controls="discovery-list" disabled>
+          <option value="">All platforms</option>
+          {% for plat in available_platforms %}<option value="{{ plat }}">{{ plat }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+    <p class="meta" id="discovery-sort-basis">Match score (descending). Highest relevance first.</p>
+
+    {% if public_export %}
+    <p class="meta" id="relevance-policy">Relevant is omitted: literal search filters public fields, but is not a suitability ranking.</p>
+    {% endif %}
+
+    <details id="discovery-inventory" class="inventory"{% if not public_export %} open{% endif %}>
+      <summary>
+        Browse
+        {% if inventory_total is not none %}complete exported inventory — {{ tool_items|length }} of {{ inventory_total }} collected rows
+        {% elif recommendation_coverage and recommendation_coverage.inventory_count is defined %}complete exported inventory — {{ tool_items|length }} of {{ recommendation_coverage.inventory_count }} collected rows
+        {% else %}the exported inventory — {{ tool_items|length }} collected rows, total collected count not supplied
+        {% endif %}, not recommendations
+      </summary>
+      <ul class="discovery-list" id="discovery-list">
+        {% for item in tool_items %}
+        <li class="discovery-item"
+            data-id="{{ item.id|default('') }}"
+            data-score="{{ item.score|default(0) }}"
+            data-category="{{ item.category|default('') }}"
+            data-source="{{ item.source_id|default('') }}"
+            data-first-observed="{{ item.first_observed_at|default('', true) }}"
+            data-popularity="{{ item.popularity.value if item.popularity is defined and item.popularity.value is not none else '' }}"
+            data-project-types='{{ item.project_types|default([], true)|tojson }}'>
+          <div class="item-header">
+            <span class="item-rank">#{{ loop.index }}</span>
+            <div class="item-main">
+              <div class="item-name">{{ safe_link(item.url, item.headline|default(item.name|default('Untitled'))) }}</div>
+              <div class="item-meta-row">
+                <span class="item-category">{{ item.category|default('uncategorized') }}</span>
+                <span class="item-source">{{ item.source_id|default(item.source|default('unknown')) }}</span>
+                {% if item.license %}<span class="tag oss">{{ item.license }}</span>{% endif %}
+                {% if item.free and item.free.status == 'open-source' %}<span class="tag free">Open Source</span>{% endif %}
+                {% if item.free and item.free.status == 'self-hosted' %}<span class="tag self-hosted">Self-Hosted</span>{% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Score strip -->
+          <div class="score-panel" style="margin: 8px 0;">
+            <div class="score-item">
+              <span class="score-label">Score</span>
+              <span class="score-value {{ 'high' if item.score|default(0) >= 80 else 'medium' if item.score|default(0) >= 60 else 'low' }}">{{ item.score|default(0) }}</span>
+            </div>
+            <div class="score-item">
+              <span class="score-label">Confidence</span>
+              <span class="score-value">{{ (item.confidence|default(0)*100)|round(0)|int }}%</span>
+            </div>
+          </div>
+
+          {% if item.what or item.summary %}
+          <div class="item-desc">{{ item.what|default(item.summary) }}</div>
+          {% endif %}
+
+          {% if item.public_metadata %}
+          <div class="tags-row">
+            {% for field in item.public_metadata %}
+            <span class="tag">{{ field.label }}: {{ field.value }}</span>
+            {% endfor %}
+          </div>
+          {% elif public_export %}
+          <div class="item-desc public-metadata-unavailable">Structured public metadata not supplied — consult the linked source.</div>
+          {% endif %}
+
+          <div class="item-source" style="margin-top: 8px; font-size: 11px;">
+            ID: {{ item.id|default('not supplied', true) }}
+            · First seen: {{ item.first_observed_at|default('unknown', true) }}
+            · Freshness: <span class="freshness">{{ item.freshness if item.freshness in ['fresh', 'stale', 'unverified'] else 'unverified' }}</span>
+            · Change: {{ item.change_type|default('none', true) }}
+          </div>
+
+          {% if item.evidence %}
+          <details class="evidence">
+            <summary>Evidence ({{ item.evidence|length }})</summary>
+            <ul class="evidence-list">
+              {% for entry in item.evidence %}
+              <li>
+                {% if entry is mapping %}{% for key, value in entry.items() %}
+                <span class="item-source">{{ key }}:</span>
+                {% if key == 'url' %}{{ safe_link(value, value) }}{% else %}{{ value }}{% endif %}
+                {% endfor %}{% else %}{{ entry }}{% endif %}
+              </li>
+              {% else %}<li>No evidence supplied — unverified.</li>{% endfor %}
+            </ul>
+          </details>
+          {% endif %}
+        </li>
+        {% else %}
+        <li class="item empty-state">No discoveries supplied.</li>
+        {% endfor %}
+      </ul>
+    </details>
+  </section>
+
+  {% if not public_export %}
+  {% if not (change_items or baseline) %}{{ change_digest }}{% endif %}
+
+  <!-- Section: Comparison Matrix -->
+  {% if comparison_candidates %}
+  <section class="tracker comparison" id="comparison" aria-label="Comparison matrix">
+    <div class="section-head">
+      <span class="cmd">$ compare</span>
+      <h2>Comparison</h2>
+    </div>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+          <th>License</th>
+          <th>Free</th>
+          <th>Self-Hosted</th>
+          <th>Platforms</th>
+          <th>Activity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in comparison_candidates %}
+        <tr>
+          <td><a href="{{ item.url }}" style="color: var(--cyan);">{{ item.name }}</a></td>
+          <td>{{ item.score }}</td>
+          <td>{{ item.license|default('N/A') }}</td>
+          <td>{{ item.free.status|default('N/A') }}</td>
+          <td>{{ 'Yes' if item.free and item.free.status == 'self-hosted' else 'No' }}</td>
+          <td>{{ item.platforms|join(', ') if item.platforms else 'N/A' }}</td>
+          <td>{{ item.last_activity_label|default('unknown') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
+
+  <!-- Section: Actions -->
+  <section class="tracker actions" id="actions" aria-label="Recommended actions">
+    <div class="section-head">
+      <span class="cmd">$ next-actions</span>
+      <h2>Next Actions</h2>
+    </div>
+    <ul class="discovery-list">
+      {% for item in action_items %}
+      <li class="discovery-item">
+        <div class="item-header">
+          <div class="item-main">
+            <div class="item-name">{{ safe_link(item.url, item.title) }}</div>
+            <div class="item-meta-row">
+              <span class="tag" style="border-color: var(--yellow); color: var(--yellow);">{{ item.priority }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="item-desc"><strong>Reason:</strong> {{ item.reason }}</div>
+        <div class="item-desc"><strong>Action:</strong> {{ item.action }}</div>
+      </li>
+      {% else %}
+      <li class="empty-state">No actions supplied.</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if news_health_items and not public_export %}
+  <section class="tracker source-health" id="news-feed-health" aria-label="News collection health">
+    <div class="section-head">
+      <span class="cmd">$ news-feed-health</span>
+      <h2>Feed Health</h2>
+    </div>
+    <p class="meta">Current collection outcomes, not provider availability. Unknown means no current outcome supplied.</p>
+    <ul class="discovery-list">
+      {% for item in news_health_items %}
+      <li class="discovery-item">
+        <div class="item-header">
+          <div class="item-main">
+            <div class="item-name">{{ item.kind }}: {{ item.source }}</div>
+            <div class="item-meta-row">
+              <span class="tag" style="border-color: {% if item.status == 'ok' %}var(--green){% elif item.status == 'degraded' %}var(--yellow){% else %}var(--red){% endif %}; color: {% if item.status == 'ok' %}var(--green){% elif item.status == 'degraded' %}var(--yellow){% else %}var(--red){% endif %};">
+                {{ item.status }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="item-source">Items: {{ item['items'] if item['items'] is not none else 'unknown' }} · History: {{ item.total_items if item.total_items is not none else 'unknown' }}</div>
+        <div class="item-source">Last success: {% if item.last_success %}<time datetime="{{ item.last_success }}">{{ item.last_success }}</time>{% else %}unknown{% endif %}</div>
+        {% if item.current_error %}<div class="item-source" style="color: var(--red);">Error: {{ item.current_error }}</div>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if public_export %}
+  <section class="tracker" id="public-scope" aria-label="Public scope">
+    <p class="meta" id="providers">Provider observations excluded from this public export — not assessed.</p>
+    <p class="meta" id="news">News excluded from this public export — not assessed.</p>
+  </section>
+  {% endif %}
+
+  <!-- Footer -->
+  <footer class="report-footer">
+    <p class="meta">Report generated at {{ generated_at }} · Source: EliLain Intel Tracker</p>
+    {% if saturation_report %}
+    <pre class="saturation-report" style="font-size: 11px; color: var(--text-muted); white-space: pre-wrap; margin-top: 12px;">{{ saturation_report }}</pre>
+    {% endif %}
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  const searchInput = document.getElementById('discovery-search');
+  const categorySelect = document.getElementById('discovery-category');
+  const sourceSelect = document.getElementById('discovery-source');
+  const sortSelect = document.getElementById('discovery-sort');
+  const platformSelect = document.getElementById('discovery-platform');
+  const list = document.getElementById('discovery-list');
+  const countEl = document.getElementById('discovery-result-count');
+  const emptyEl = document.getElementById('discovery-empty');
+
+  if (!list || !searchInput) return;
+
+  function getFilters() {
+    return {
+      search: searchInput ? searchInput.value.toLowerCase() : '',
+      category: categorySelect ? categorySelect.value : '',
+      source: sourceSelect ? sourceSelect.value : '',
+      sort: sortSelect ? sortSelect.value : 'score',
+      platform: platformSelect ? platformSelect.value : '',
+    };
+  }
+
+  function matchesFilters(item, filters) {
+    const text = (
+      (item.querySelector('.item-name')?.textContent || '') +
+      (item.querySelector('.item-desc')?.textContent || '') +
+      (item.dataset.id || '')
+    ).toLowerCase();
+
+    if (filters.search && !text.includes(filters.search)) return false;
+    if (filters.category && item.dataset.category !== filters.category) return false;
+    if (filters.source && item.dataset.source !== filters.source) return false;
+    if (filters.platform) {
+      const platforms = item.dataset.projectTypes ? JSON.parse(item.dataset.projectTypes) : [];
+      if (!platforms.includes(filters.platform)) return false;
+    }
+    return true;
+  }
+
+  function sortItems(items, sortBy) {
+    const sorted = Array.from(items);
+    sorted.sort((a, b) => {
+      const scoreA = parseInt(a.dataset.score || '0', 10);
+      const scoreB = parseInt(b.dataset.score || '0', 10);
+      if (sortBy === 'score') return scoreB - scoreA;
+      if (sortBy === 'newest') {
+        const dateA = new Date(a.dataset.firstObserved || 0);
+        const dateB = new Date(b.dataset.firstObserved || 0);
+        return dateB - dateA;
+      }
+      return scoreB - scoreA;
+    });
+    return sorted;
+  }
+
+  function updateDisplay() {
+    const filters = getFilters();
+    const items = Array.from(list.querySelectorAll('.discovery-item'));
+    const visible = items.filter(item => matchesFilters(item, filters));
+
+    // Clear and re-append in sorted order
+    const sorted = sortItems(visible, filters.sort);
+    sorted.forEach(item => list.appendChild(item));
+
+    // Update count
+    const total = items.length;
+    const showing = sorted.length;
+    if (countEl) {
+      countEl.textContent = showing === total
+        ? `${total} discoveries collected`
+        : `${showing} of ${total} discoveries match the filters`;
+    }
+    if (emptyEl) {
+      emptyEl.hidden = showing > 0;
+    }
+  }
+
+  // Attach listeners
+  [searchInput, categorySelect, sourceSelect, sortSelect, platformSelect].forEach(el => {
+    if (el) el.addEventListener('change', updateDisplay);
+    if (el) el.addEventListener('input', updateDisplay);
+  });
+
+  // Enable filters after page load
+  setTimeout(() => {
+    [searchInput, categorySelect, sourceSelect, sortSelect, platformSelect].forEach(el => {
+      if (el) el.disabled = false;
+    });
+  }, 100);
+})();
+</script>
+</body>
+</html>

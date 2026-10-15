@@ -1,0 +1,157 @@
+name: EliLain — Daily Intel Audit
+on:
+  schedule:
+  - cron: 0 10 * * *
+    timezone: Africa/Cairo
+  workflow_dispatch:
+    inputs:
+      publish_pages:
+        description: Verify Pages publication once before enabling the daily flag
+        type: boolean
+        required: false
+        default: false
+      release_gate:
+        description: Ordered release gate; notify only after parent browser/hash clearance
+        type: choice
+        options:
+        - scan
+        - notify
+        default: scan
+        required: true
+      source_run_id:
+        description: Exact prior scan artifact run ID for notify only
+        type: string
+        default: ''
+        required: false
+permissions:
+  contents: read
+  actions: read
+env:
+  PUBLIC_REPORT_URL: ${{ vars.PUBLIC_REPORT_URL }}
+  PRIVATE_REPOSITORIES: ${{ secrets.PRIVATE_REPOSITORIES }}
+concurrency:
+  group: elilain-release-e2e-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  run-elilain-audit:
+    if: ${{ github.event_name == 'workflow_dispatch' || vars.DAILY_RUN_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install dependencies from the lock
+      run: '# The lock is authoritative. `pip install -e ".[dev]"` resolves pyproject''s
+
+        # open ranges instead, so two runs of the same commit could install
+
+        # different code - which is exactly what requirements-lock.txt exists to
+
+        # prevent. Verified: that open-range install resolved python-dotenv 1.2.4
+
+        # while the lock pins 1.2.3, and the staleness guard caught the drift.
+
+        pip install -r requirements-lock.txt
+
+        # Local packages last, with --no-deps: their own dependency ranges must
+
+        # not reintroduce unpinned versions over the lock.
+
+        pip install -e "./src/tracker-core" --no-deps
+
+        pip install -e . --no-deps
+
+        '
+    - name: Restore daily public state only
+      id: restore-intel
+      uses: actions/cache/restore@v4
+      if: ${{ false }}
+      with:
+        key: intel-state-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+        restore-keys: 'intel-state-${{ runner.os }}-
+
+          '
+        path: 'data/daily_state/history.jsonl
+
+          data/daily_state/raw_evidence.json
+
+          data/delivery_receipts.json
+
+          data/cloudflare_publication.json
+
+          '
+    - name: Install Chromium for rendered-site tests
+      run: python -m playwright install --with-deps chromium
+    - name: Run daily intel scan
+      id: daily-intel
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NOTIFICATION_CHANNEL: none
+      run: python main.py daily --data-dir data --public-dir ./public
+      if: ${{ inputs.release_gate == 'scan' }}
+    - name: Gate nonempty daily report before deploy
+      id: gate
+      run: python scripts/gate_daily_nonempty.py --data-dir data --public-dir ./public
+      if: ${{ inputs.release_gate == 'scan' }}
+    - name: Load exact cleared scan artifact
+      if: ${{ inputs.release_gate == 'notify' }}
+      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+      with:
+        name: elain-public-${{ inputs.source_run_id }}
+        path: public
+        run-id: ${{ inputs.source_run_id }}
+        github-token: ${{ github.token }}
+    - name: Run regression tests
+      run: python -m pytest tests -q
+    - name: Validate sanitized single-file publication boundary
+      run: python scripts/verify_pages_report.py --public-dir ./public --preflight-only
+    - name: Upload sanitized public export as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: elain-public-${{ github.run_id }}
+        path: public/index.html
+        retention-days: 14
+    - name: Deploy sanitized file to Cloudflare Pages
+      id: deploy-pages
+      if: ${{ vars.CLOUDFLARE_PUBLISH_ENABLED == 'true' && inputs.publish_pages && inputs.release_gate == 'scan' }}
+      uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        wranglerVersion: 4.146.0
+        command: pages deploy ./public --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT }} --branch=main
+    - name: Verify actual Pages bytes before notifications
+      id: verify-pages
+      if: ${{ steps.deploy-pages.outcome == 'success' || inputs.release_gate == 'notify' }}
+      run: python scripts/verify_pages_report.py --public-dir ./public
+    - name: Publish export and notify (opt-in via PUBLISH_ENABLED)
+      if: ${{ vars.PUBLISH_ENABLED == 'true' && vars.CLOUDFLARE_PUBLISH_ENABLED == 'true' && inputs.publish_pages && inputs.release_gate == 'notify' }}
+      env:
+        DELIVERY_DEBUG: '1'
+        PUBLIC_REPORT_URL: ${{ steps.verify-pages.outputs.url }}
+        PUBLIC_REPORT_ATTACHMENT: 'false'
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+        NOTIFICATION_CHANNEL: telegram,discord
+      run: python main.py publish --public-dir ./public --no-export
+    - name: Persist daily state only
+      if: ${{ always() && false && steps.restore-intel.outcome == 'success' }}
+      uses: actions/cache/save@v4
+      with:
+        key: intel-state-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+        path: 'data/daily_state/history.jsonl
+
+          data/daily_state/raw_evidence.json
+
+          data/delivery_receipts.json
+
+          data/cloudflare_publication.json
+
+          '
+

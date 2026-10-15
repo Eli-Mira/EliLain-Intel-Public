@@ -1,0 +1,62 @@
+# Fully pinned dependency lock for EliLain-Intel.
+#
+# Generated 2026-10-03 from the exact environment that ran the 871-passing test
+# suite (Python 3.11.16, project .venv). Every distribution is pinned with ==, so
+# a rebuild reproduces known-good code instead of resolving to whatever is newest.
+#
+# Why this exists: pyproject.toml declares open ranges (httpx>=0.27.0, praw>=7.7.0).
+# praw has since resolved 7.x -> 8.0.3 and aiosmtplib 3.x -> 5.1.3 across installs, so
+# two people or two CI runs could get different code from the same commit.
+#
+# Install:  python -m pip install -r requirements-lock.txt
+#
+# Regenerate deliberately, then re-run the full suite and review the diff.
+
+# --- runtime + transitive ---
+
+aiosmtplib==5.1.3
+annotated-types==0.8.0
+anyio==4.15.1
+APScheduler==3.11.3
+beautifulsoup4==4.15.0
+certifi==2026.7.22
+charset-normalizer==3.5.2
+defusedxml==0.7.1
+feedparser-sgmllib==2.1.0
+feedparser==6.0.14
+greenlet==3.5.6
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
+idna==3.20
+Jinja2==3.1.6
+markdown-it-py==4.2.0
+MarkupSafe==3.0.3
+mdurl==0.1.2
+packaging==26.3
+playwright==1.63.0
+praw==8.0.3
+pydantic-settings==2.15.0
+pydantic==2.13.5
+pydantic_core==2.46.5
+pyee==13.0.1
+Pygments==2.21.0
+python-dotenv==1.2.3
+PyYAML==6.0.3
+requests==2.34.2
+rich==15.0.0
+soupsieve==2.10
+typing-inspection==0.4.4
+typing_extensions==4.16.0
+tzdata==2026.4
+tzlocal==5.4.4
+update_checker==1.0.0
+urllib3==2.8.0
+websocket-client==1.9.2
+# --- test/dev + transitive ---
+coverage==7.16.2
+iniconfig==2.3.0
+pluggy==1.6.0
+pytest==9.1.1
+pytest-asyncio==1.4.0
+pytest-cov==7.1.0

@@ -1,0 +1,356 @@
+{% raw %}<!--
+  REPORT TEMPLATE — read before editing
+  ============================================================================
+  LOCKED  — the <style> block and the tag structure around each section.
+            Changing these changes how every future report looks. Only touch
+            if the brief itself changes (new brand, new layout).
+  EDITABLE — everything inside the two {% for %} loops below, and the two
+            <p class="meta"> lines. Add/remove *items* here freely — that's
+            the whole point, this is what changes every run.
+
+  DATA CONTRACT — report.py must pass:
+    report_date   : str   e.g. "2026-09-21"
+    generated_at  : str   e.g. "08:00 UTC+2"
+    api_items     : [{ name, status, description }]     status: "new" | "updated" | "stable"
+    news_items    : [{ headline, source, summary, url }]
+
+  Adding a field to an item dict is safe (old templates ignore unused keys).
+  Removing a field used below will break rendering — grep for it first.
+  ============================================================================
+-->
+{% endraw %}
+<!--
+  INTEL EXTENSION CONTRACT (original locked style and header preserved above):
+    change_items: headline, source, summary, url, change_type
+    action_items: title, priority, reason, action, url
+    source_items: name, status, checked_at, item_count, error, url, coverage
+    tool_items: headline, source, summary, url; optional id, project_types,
+                evidence (list of dictionaries), freshness, change_type
+    api_items: name, status, description; optional actual_status, freshness,
+               checked_at, probe_source, evidence (list of dictionaries)
+    baseline: true means the first run has no previous snapshot to compare
+    runtime_source: explicit runner label, otherwise runtime not supplied
+  Empty states remain visible; timestamps are not synthesized as probe evidence.
+  Extension styles live in a separate block. Only HTTP(S) URLs are clickable.
+-->
+{% macro safe_link(url, label) -%}
+{% set href = url|safe_url %}{% if href %}<a href="{{ href }}" rel="noopener noreferrer">{{ label }}</a>{% else %}{{ label }}{% endif %}
+{%- endmacro %}
+{% macro evidence_details(items) -%}
+<details class="evidence">
+  <summary>Evidence ({{ items|length }})</summary>
+  <ul class="evidence-list">
+    {% for entry in items %}
+    <li>{% if entry is mapping %}{% for key, value in entry.items() %}<div><span class="item-source">{{ key }}:</span> {% if key == 'url' %}{{ safe_link(value, value) }}{% else %}{{ value }}{% endif %}</div>{% endfor %}{% else %}{{ entry }}{% endif %}</li>
+    {% else %}<li>No evidence supplied — unverified.</li>{% endfor %}
+  </ul>
+</details>
+{%- endmacro %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tracker report — {{ report_date }}</title>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --panel: #12141c;
+    --border: #262a38;
+    --text: #e7e6ef;
+    --text-dim: #8b8fa3;
+    --lime: #b6ff3c;
+    --pink: #ff3ea5;
+    --font: 'Fira Code', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+  header.report-head {
+    margin-bottom: 32px;
+  }
+  .prompt {
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+  .prompt .cmd { color: var(--text); }
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 6px 0 0;
+  }
+  section.tracker {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .section-head .cmd {
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .tracker.api .cmd { color: var(--lime); }
+  .tracker.news .cmd { color: var(--pink); }
+  p.meta {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0 0 18px;
+  }
+  ul.items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li.item {
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+  }
+  li.item:first-child { border-top: none; }
+  .item-line {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .item-name { font-weight: 600; }
+  .item-name a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); }
+  .item-name a:hover { border-bottom-color: var(--text-dim); }
+  .status { font-size: 12px; }
+  .status.new { color: var(--lime); }
+  .status.updated { color: var(--pink); }
+  .status.stable { color: var(--text-dim); }
+  .item-desc {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-top: 3px;
+  }
+  .item-source {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+  @media (max-width: 480px) {
+    .wrap { padding: 32px 16px 48px; }
+  }
+</style>
+<style id="intel-extensions">
+  /* Additive extension rules only; original locked style block is unchanged. */
+  .tracker .item-line { flex-wrap: wrap; }
+  .tracker .item { overflow-wrap: anywhere; }
+  .tracker .evidence { font-size: 13px; margin-top: 6px; }
+  .tracker .evidence summary { cursor: pointer; color: var(--text); }
+  .tracker .evidence-list { padding-left: 20px; }
+  .tracker .evidence a { color: var(--text); }
+  .discovery-filters { display: grid; gap: 6px; font-size: 13px; }
+  .discovery-filters input, .discovery-filters select { width: 100%; min-width: 0; font: inherit; background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 6px; }
+  .discovery-filters :focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+  .tracker [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="report-head">
+    <div class="prompt">{{ runtime_source|default("runtime not supplied", true) }} <span class="cmd">~$ ./tracker report --date={{ report_date }}</span></div>
+    <h1>tracker report — {{ report_date }}</h1>
+  </header>
+
+  <!-- Extension: change-first digest; original inventory markup follows. -->
+  <section class="tracker changes" id="changes" aria-label="Changes since previous run">
+    <div class="section-head"><span class="cmd">$ changes-since-last-run</span></div>
+    {% if baseline %}<p class="meta">First run — baseline captured; no previous snapshot to compare.</p>{% endif %}
+    <ul class="items">
+      {% for item in change_items %}
+      <li class="item">
+        <div class="item-line"><span class="item-name">{{ safe_link(item.url, item.headline) }}</span><span class="status">[{{ item.change_type }}]</span></div>
+        <div class="item-desc">{{ item.summary }}</div>
+        <div class="item-source">{{ item.source }}</div>
+      </li>
+      {% else %}
+      <li class="item empty-state">{% if baseline %}Inventory below establishes the baseline.{% else %}No material changes detected since the previous run.{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+
+  <section class="tracker actions" id="actions" aria-label="Recommended actions">
+    <div class="section-head"><span class="cmd">$ next-actions</span></div>
+    <ul class="items">
+      {% for item in action_items %}
+      <li class="item">
+        <div class="item-line"><span class="item-name">{{ safe_link(item.url, item.title) }}</span><span class="status">[{{ item.priority }}]</span></div>
+        <div class="item-desc">Reason: {{ item.reason }}</div>
+        <div class="item-desc">Action: {{ item.action }}</div>
+      </li>
+      {% else %}<li class="item empty-state">No actions supplied.</li>{% endfor %}
+    </ul>
+  </section>
+
+{% if news_health_items and not public_export %}
+  <section class="tracker source-health" id="news-feed-health" aria-label="News collection health">
+    <div class="section-head"><span class="cmd">$ news-feed-health</span></div>
+    <p class="meta">Current collection outcomes, not provider availability. Unknown means no current outcome supplied. Feed identities are hashed; source success does not prove complete feed coverage.</p>
+    <ul class="items">
+      {% for item in news_health_items %}
+      <li class="item news-health-row" data-news-identity="{{ item.source }}">
+        <div class="item-line"><span class="item-name">{{ item.kind }}: {{ item.source }}</span><span class="status">[{{ item.status }}]</span></div>
+        <div class="item-source">Current collection: {{ item.status }} · Items in current outcome: {{ item['items'] if item['items'] is not none else 'unknown' }}</div>
+        <div class="item-source">History — cumulative items from successful observations: {{ item.total_items if item.total_items is not none else 'unknown' }} (not unique retained news or current-run count) · Consecutive failures: {{ item.consecutive_failures if item.consecutive_failures is not none else 'unknown' }}</div>
+        <div class="item-source">Historical last success: {% if item.last_success %}<time datetime="{{ item.last_success }}">{{ item.last_success }}</time>{% else %}unknown{% endif %} · Historical last failure: {% if item.last_failure %}<time datetime="{{ item.last_failure }}">{{ item.last_failure }}</time>{% else %}unknown{% endif %}</div>
+        <div class="item-source">History cooldown: {{ item.cooldown }}{% if item.cooldown_until %} · Deadline: <time datetime="{{ item.cooldown_until }}">{{ item.cooldown_until }}</time>{% endif %}</div>
+        {% if item.current_error %}<div class="item-source">Current failure classification: {{ item.current_error }}</div>{% endif %}
+        {% if item.historical_error %}<div class="item-source">Historical failure classification: {{ item.historical_error }}</div>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+
+  <section class="tracker source-health" id="source-health" aria-label="Source health and coverage">
+    <div class="section-head"><span class="cmd">$ source-health</span></div>
+    <p class="meta">Collection health and coverage; not provider availability.</p>
+    <ul class="items">
+      {% for item in source_items %}
+      <li class="item">
+        <div class="item-line"><span class="item-name">{{ safe_link(item.url, item.name) }}</span><span class="status">[{{ item.status|default('unverified', true) }}]</span></div>
+        <div class="item-source">Checked: {{ item.checked_at|default('not supplied', true) }} · {{ item.item_count|default('unknown') }} items · Coverage: {{ item.coverage|default('not supplied', true) }}</div>
+        {% if item.error %}<div class="item-desc">Error: {{ item.error }}</div>{% endif %}
+      </li>
+      {% else %}<li class="item empty-state">Source health not supplied — coverage unverified.</li>{% endfor %}
+    </ul>
+  </section>
+
+  <!-- Original provider section, extended with independent probe metadata. -->
+  <section class="tracker api" id="providers" aria-label="Provider inventory">
+    <div class="section-head"><span class="cmd">$ free-api-tracker</span></div>
+    <p class="meta">{{ api_items|length }} providers tracked · status is not a freshness claim</p>
+    <ul class="items">
+      {% for item in api_items %}
+      <li class="item">
+        <div class="item-line">
+          <span class="item-name">{{ item.name }}</span>
+          <span class="status {{ item.status }}">[{{ item.status }}]</span>
+        </div>
+        <div class="item-desc">{{ item.description }}</div>
+        <div class="item-source">Actual status: {{ item.actual_status|default('not supplied', true) }} · Freshness: <span class="freshness">{{ item.freshness if item.freshness in ['fresh', 'stale', 'unverified'] else 'unverified' }}</span></div>
+        <div class="item-source">Checked: {{ item.checked_at|default('not supplied', true) }} · Probe source: {{ item.probe_source|default('not supplied', true) }}</div>
+        {{ evidence_details(item.evidence|default([], true)) }}
+      </li>
+      {% else %}<li class="item empty-state">No providers supplied.</li>{% endfor %}
+    </ul>
+  </section>
+
+  <!-- Extension: tools and model discoveries share the discovery contract. -->
+  <section class="tracker discoveries" id="discoveries" aria-label="Tool and model discoveries">
+    <div class="section-head"><span class="cmd">$ github-discovery</span></div>
+    <p class="meta">{{ tool_items|length }} tool / model discoveries</p>
+    <div class="discovery-filters" role="search" aria-label="Filter tool and model discoveries">
+      <label for="discovery-search">Search discoveries</label>
+      <input id="discovery-search" type="search" placeholder="Headline, summary or evidence" aria-controls="discovery-list">
+      <label for="discovery-project">Project type</label>
+      <select id="discovery-project" aria-controls="discovery-list"><option value="">All project types</option></select>
+      <label for="discovery-source">Discovery source</label>
+      <select id="discovery-source" aria-controls="discovery-list"><option value="">All sources</option></select>
+    </div>
+    <p class="meta" id="discovery-result-count" role="status" aria-live="polite">{{ tool_items|length }} of {{ tool_items|length }} discoveries shown</p>
+    <p class="meta" id="discovery-empty" hidden>No discoveries match these filters.</p>
+    <noscript><p class="meta">Filters require JavaScript; all discoveries are shown below.</p></noscript>
+    <ul class="items" id="discovery-list">
+      {% for item in tool_items %}
+      <li class="item discovery-item" data-source="{{ item.source }}" data-project-types='{{ item.project_types|default([], true)|tojson }}'>
+        <div class="item-line"><span class="item-name">{{ safe_link(item.url, item.headline) }}</span><span class="item-source">{{ item.source }}</span></div>
+        <div class="item-desc">{{ item.summary }}</div>
+        <div class="item-source">ID: {{ item.id|default('not supplied', true) }} · Project types: {{ item.project_types|default([], true)|join(', ') or 'not supplied' }}</div>
+        <div class="item-source">Change: {{ item.change_type|default('not supplied', true) }} · Freshness: <span class="freshness">{{ item.freshness if item.freshness in ['fresh', 'stale', 'unverified'] else 'unverified' }}</span></div>
+        {{ evidence_details(item.evidence|default([], true)) }}
+      </li>
+      {% else %}<li class="item empty-state">No discoveries supplied.</li>{% endfor %}
+    </ul>
+  </section>
+
+  <section class="tracker news" id="news" aria-label="AI news inventory">
+    <div class="section-head"><span class="cmd">$ ai-news-tracker</span></div>
+    <p class="meta">{{ news_items|length }} stories</p>
+    <ul class="items">
+      {% for item in news_items %}
+      <li class="item">
+        <div class="item-line">
+          <span class="item-name">{{ safe_link(item.url, item.headline) }}</span>
+        </div>
+        <div class="item-desc">{{ item.summary }} <span class="item-source">— {{ item.source }}</span></div>
+      </li>
+      {% else %}<li class="item empty-state">No stories supplied.</li>{% endfor %}
+    </ul>
+  </section>
+
+  <footer>generated by tracker-core · {{ runtime_source|default("runtime not supplied", true) }} · {{ generated_at }} (report generation, not a probe timestamp)</footer>
+
+</div>
+<script>
+(() => {
+  'use strict';
+  const section = document.getElementById('discoveries');
+  if (!section) return;
+  const rows = Array.from(section.querySelectorAll('.discovery-item'));
+  const search = document.getElementById('discovery-search');
+  const project = document.getElementById('discovery-project');
+  const source = document.getElementById('discovery-source');
+  const records = rows.map(row => ({
+    row,
+    text: row.textContent.toLowerCase(),
+    source: row.dataset.source,
+    types: JSON.parse(row.dataset.projectTypes)
+  }));
+  const addOptions = (select, values) => {
+    Array.from(new Set(values)).filter(Boolean).sort().forEach(value => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  };
+  addOptions(project, records.flatMap(record => record.types));
+  addOptions(source, records.map(record => record.source));
+  const applyFilters = () => {
+    const term = search.value.trim().toLowerCase();
+    let visible = 0;
+    records.forEach(record => {
+      const matches = record.text.includes(term) &&
+        (!project.value || record.types.includes(project.value)) &&
+        (!source.value || record.source === source.value);
+      record.row.hidden = !matches;
+      if (matches) visible += 1;
+    });
+    document.getElementById('discovery-result-count').textContent =
+      `${visible} of ${records.length} discoveries shown`;
+    document.getElementById('discovery-empty').hidden = visible > 0 || records.length === 0;
+  };
+  search.addEventListener('input', applyFilters);
+  project.addEventListener('change', applyFilters);
+  source.addEventListener('change', applyFilters);
+  applyFilters();
+})();
+</script>
+</body>
+</html>
