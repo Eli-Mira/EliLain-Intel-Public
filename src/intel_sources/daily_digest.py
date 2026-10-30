@@ -15,7 +15,7 @@ _SECRET_RE = re.compile(
     r'password\s*[=:]?\s*\S+)'
 )
 _PATH_RE = re.compile(
-    r'''https?://[^\s<>"']+|(?<![a-zA-Z])[a-zA-Z]:[/\\]|/(?:home|tmp|var|etc|root|usr)/''',
+    r'''https?://[^\s<>"']+|(?<![a-zA-Z])[a-zA-Z]:[/\\]\S*|/(?:home|tmp|var|etc|root|usr)/\S*''',
     re.IGNORECASE,
 )
 _CONTROL_RE = re.compile(r'[\x00-\x1f\x7f]')
@@ -197,8 +197,15 @@ def build_digest(
     collection: dict[str, Any],
     settings: dict[str, Any],
     now: datetime | None = None,
+    *,
+    include_rejections: bool = False,
 ) -> dict[str, Any]:
-    """Build a daily digest from verified candidates."""
+    """Build a daily digest from verified candidates.
+
+    ``include_rejections`` adds a ``rejections`` list of ``{id, reason}`` for
+    private diagnostics (raw evidence), keeping the default public digest
+    schema unchanged.
+    """
     now = now or datetime.now(timezone.utc)
     candidates = collection.get('candidates', [])
     sources_info = collection.get('sources', [])
@@ -284,6 +291,8 @@ def build_digest(
         'sources': sources_info,
         'counts': counts,
     }
+    if include_rejections:
+        digest['rejections'] = rejected
     logger.info(f"Digest built: {counts}")
     return digest
 

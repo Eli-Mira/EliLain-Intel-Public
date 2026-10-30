@@ -20,6 +20,8 @@ from . import settings as settings_module
 from .daily_sources import fetch_candidates, verify_candidates
 from .daily_digest import build_digest
 from .daily_public import export_digest, export_state
+from .evidence import group_findings
+from .evidence import novelty as evidence_novelty
 
 logger = logging.getLogger(__name__)
 
@@ -126,9 +128,12 @@ async def run_daily(settings_path: str | Path | None = None, data_dir: str | Pat
     fetched = await fetch_candidates(cfg, now)
     verified = await verify_candidates(fetched['candidates'], cfg, now)
 
-    # Build digest
+    # Build digest — include_rejections adds per-candidate exclusion codes for
+    # PRIVATE raw evidence only; the key is popped before the public export so
+    # served bytes keep the exact prior schema.
     collection = {'candidates': verified, 'sources': fetched['sources']}
-    digest = build_digest(collection, cfg, now)
+    digest = build_digest(collection, cfg, now, include_rejections=True)
+    rejections = digest.pop('rejections', [])
 
     # Public export — caller-selected public_dir is the exact producer output
     export_dir = Path(public_dir) if public_dir is not None else data_dir / 'public'
@@ -137,14 +142,37 @@ async def run_daily(settings_path: str | Path | None = None, data_dir: str | Pat
     # history entry to this run's HTML (stale/tampered histories fail).
     _artifact_sha256 = hashlib.sha256(public_path.read_bytes()).hexdigest()
 
-    # Private raw evidence
+    # Private raw evidence. The prior run's entity baseline (read before this
+    # run overwrites the file) grounds first_seen/repeat novelty so repeated
+    # items are distinguishable from genuinely new findings.
+    evidence_path = state_dir / 'raw_evidence.json'
+    prior_baseline: set[str] = set()
+    try:
+        if evidence_path.exists():
+            prior = json.loads(evidence_path.read_text(encoding='utf-8'))
+            baseline = prior.get('entity_baseline')
+            if isinstance(baseline, list):
+                prior_baseline = {e for e in baseline if isinstance(e, str)}
+    except (json.JSONDecodeError, OSError):
+        prior_baseline = set()
+
+    findings = evidence_novelty(group_findings(verified), prior_baseline)
     raw_evidence = {
         'candidates': verified,
         'sources': fetched['sources'],
         'settings': cfg,
         'generated_at': digest.get('generated_at'),
+        # Per-candidate exclusion codes ({id, reason}) for offline diagnosis;
+        # never exported publicly.
+        'rejections': rejections,
+        # Corroborated findings with entity keys and novelty vs the prior run.
+        'findings': [{'entity_key': f['entity_key'], 'canonical_id': f['id'],
+                      'novelty': f['novelty'], 'freshness': f['freshness'],
+                      'corroboration_count': len(f['corroborations']),
+                      'first_published_at': f['first_published_at']}
+                     for f in findings],
+        'entity_baseline': [f['entity_key'] for f in findings],
     }
-    evidence_path = state_dir / 'raw_evidence.json'
     _atomic_json(evidence_path, raw_evidence)
 
     # Persist delivery continuity artifacts (only required current-state files;
@@ -178,6 +206,8 @@ async def run_daily(settings_path: str | Path | None = None, data_dir: str | Pat
         'public_path': str(public_path),
         'evidence_path': str(evidence_path),
         'counts': digest.get('counts', {}),
+        'findings_count': len(findings),
+        'new_findings': sum(1 for f in findings if f['novelty'] == 'first_seen'),
         'delayed_start': delayed,
         'intended_slot': intended_slot.isoformat(),
         'settings_hash': settings_hash,

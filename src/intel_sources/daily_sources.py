@@ -622,8 +622,8 @@ async def _fetch_github_trending(client: httpx.AsyncClient, now_iso: str) -> tup
             repo_url = f"https://github.com/{name}"
             # Bounded public repository metadata lookup for source-code licensing.
             # No credentials; failures stay unknown (no free entitlement).
-            spdx_id = license_meta.get(name)
-            if spdx_id is None and len(license_meta) < 5:
+            cached = license_meta.get(name)
+            if cached is None and len(license_meta) < 5:
                 try:
                     meta = await _fetch_json(client, f"https://api.github.com/repos/{name}",
                                              extra_headers={"Accept": "application/vnd.github+json",
@@ -632,21 +632,28 @@ async def _fetch_github_trending(client: httpx.AsyncClient, now_iso: str) -> tup
                     full_name = meta.get("full_name") or name
                     if full_name.lower() != name.lower():
                         repo_url = f"https://github.com/{full_name}"
+                    lookup = "verified" if spdx_id else "no_license"
                 except Exception:
                     logger.debug("GitHub license metadata lookup failed for %s", name)
                     spdx_id = None
-                license_meta[name] = (spdx_id, repo_url)
+                    lookup = "unavailable"
+                license_meta[name] = (spdx_id, repo_url, lookup)
             else:
-                spdx_id, repo_url = spdx_id or (None, repo_url)
+                spdx_id, repo_url, lookup = cached
             if spdx_id in _OPEN_SOURCE_LICENSES:
                 free_status = "open-source"
                 free_detail = f"GitHub repository license: {spdx_id} (verified via api.github.com)"
             elif spdx_id:
                 free_status = "unknown"
                 free_detail = f"GitHub repository license: {spdx_id} (not an approved OSI license)"
+            elif lookup == "no_license":
+                free_status = "unknown"
+                free_detail = ("GitHub metadata reports no license file; open-source status "
+                               "unverified, not classified proprietary")
             else:
                 free_status = "unknown"
-                free_detail = "GitHub public repository; license not verified"
+                free_detail = ("GitHub license lookup unavailable (rate limit or error); "
+                               "open-source status unverified")
             candidate = {
                 "id": f"github:{name.lower()}",
                 "name": name,
@@ -750,25 +757,34 @@ async def _fetch_skills_hot(client: httpx.AsyncClient, now_iso: str) -> tuple[li
             name = name_el.get_text(strip=True) if name_el else slug
             # Bounded public GitHub repository metadata lookup for the skill's
             # source-code license. A listing alone is never free-tier.
-            spdx_id = license_meta.get(f"{owner}/{repo}")
-            if spdx_id is None and len(license_meta) < 5:
+            cached = license_meta.get(f"{owner}/{repo}")
+            if cached is None and len(license_meta) < 5:
                 try:
                     meta = await _fetch_json(client, f"https://api.github.com/repos/{owner}/{repo}",
                                              extra_headers={"Accept": "application/vnd.github+json", "User-Agent": _GITHUB_USER_AGENT})
                     spdx_id = (meta.get("license") or {}).get("spdx_id")
+                    lookup = "verified" if spdx_id else "no_license"
                 except Exception:
                     logger.debug("GitHub license metadata lookup failed for %s/%s", owner, repo)
                     spdx_id = None
-                license_meta[f"{owner}/{repo}"] = spdx_id
+                    lookup = "unavailable"
+                license_meta[f"{owner}/{repo}"] = (spdx_id, lookup)
+            else:
+                spdx_id, lookup = cached
             if spdx_id in _OPEN_SOURCE_LICENSES:
                 free_status = "open-source"
                 free_detail = f"Skills.sh skill source repository license: {spdx_id} (verified via api.github.com)"
             elif spdx_id:
                 free_status = "unknown"
                 free_detail = f"Skills.sh skill source repository license: {spdx_id} (not an approved OSI license)"
+            elif lookup == "no_license":
+                free_status = "unknown"
+                free_detail = ("Skill source repository metadata reports no license file; "
+                               "open-source status unverified, not classified proprietary")
             else:
                 free_status = "unknown"
-                free_detail = "Skills.sh public skill listing; source-code license not verified"
+                free_detail = ("Skill source repository license lookup unavailable (rate limit or error); "
+                               "open-source status unverified")
             what = description
             why = (f"Public skill on Skills.sh at {owner}/{repo}/{slug}: {description}.")
             candidate = {
@@ -846,6 +862,11 @@ async def _fetch_unorouter(client: httpx.AsyncClient, now_iso: str) -> tuple[lis
     try:
         data = await _fetch_json(client, url)
         models = data.get("models", [])
+        # The catalog URL itself was just fetched successfully with the guarded
+        # GET path (status, size, WAF and deadline checks all passed). Candidates
+        # built below carry that GET evidence (_source_get_verified) so link
+        # verification does not re-request it and does not misread a GET-only
+        # endpoint's 404-on-HEAD as a dead link.
         # UnoRouter's release_ts is a real upstream release timestamp (ms epoch).
         # Sort descending so the latest releases surface first.
         dated = sorted(
@@ -914,6 +935,7 @@ async def _fetch_unorouter(client: httpx.AsyncClient, now_iso: str) -> tuple[lis
                          "evidence_url": url},
                 "api": {"status": "available", "detail": "REST endpoint", "evidence_url": url},
                 "topics": ["models"] + (["free-api"] if free_status == "free-tier" else []),
+                "_source_get_verified": now_iso,
             }
             candidates.append(candidate)
             status_info["returned"] += 1
@@ -1025,6 +1047,11 @@ async def verify_candidates(candidates: list[dict[str, Any]], settings: dict[str
     validated against the same SSRF policy as _safe_get — private hosts,
     scheme downgrades, credentials, and loops are all rejected at the
     redirect seam, not merely avoided by client.follow_redirects=False.
+
+    When HEAD answers 404/405 (endpoints that only serve GET, observed on
+    the UnoRouter pricing catalog), one bounded GET re-verifies through the
+    same guarded transport; a 200 GET marks the link verified. WAF-flagged
+    and other non-200 statuses stay unverified and are never re-probed.
     """
     now = now or _now_aware()
     now_iso = now.isoformat()
@@ -1055,6 +1082,16 @@ async def verify_candidates(candidates: list[dict[str, Any]], settings: dict[str
                     if not _is_safe_host(parsed.hostname):
                         return {**cand, "link_verification": {"status": "unverified",
                                         "checked_at": now_iso, "url": url, "http_status": None}}
+                    # Same-run guarded GET evidence: the source adapter already
+                    # fetched exactly this URL with every safety check passing,
+                    # which is stronger evidence than a fresh HEAD and avoids a
+                    # duplicate request. HTTPS + safe-host revalidation above
+                    # still applies.
+                    if cand.get("_source_get_verified"):
+                        return {**cand, "link_verification": {
+                                    "status": "verified",
+                                    "checked_at": cand["_source_get_verified"],
+                                    "url": url, "http_status": 200}}
 
                     # Use _safe_head for redirect-safe HEAD verification.
                     # _safe_head validates every redirect hop through the same
@@ -1075,6 +1112,31 @@ async def verify_candidates(candidates: list[dict[str, Any]], settings: dict[str
                                         "checked_at": now_iso, "url": url, "http_status": http_status}}
 
                     await response.aclose()
+                    if http_status != 200 and http_status in (404, 405):
+                        # Some approved catalog endpoints (observed on the
+                        # UnoRouter pricing API) answer 404/405 to HEAD while
+                        # serving GET on the same URL the source adapter
+                        # fetched successfully moments earlier; marking those
+                        # unverified excluded genuinely fresh free-tier
+                        # records. Re-verify with one bounded GET through the
+                        # identical guarded client: every SSRF, WAF, byte-cap
+                        # and deadline check applies unchanged. WAF-flagged
+                        # and 401/403 responses are never re-probed.
+                        try:
+                            get_response, _ = await asyncio.wait_for(
+                                _safe_get(client, url, timeout=deadline),
+                                timeout=deadline,
+                            )
+                            get_status = get_response.status_code
+                            get_waf = _is_waf_response(get_status, dict(get_response.headers), "")
+                            await get_response.aclose()
+                            if not get_waf and get_status == 200:
+                                return {**cand, "link_verification": {
+                                            "status": "verified",
+                                            "checked_at": now_iso, "url": url,
+                                            "http_status": get_status}}
+                        except Exception:
+                            logger.debug("GET fallback verification failed")
                     status = "verified" if http_status == 200 else "unverified"
                     return {**cand, "link_verification": {"status": status,
                                     "checked_at": now_iso, "url": url, "http_status": http_status}}

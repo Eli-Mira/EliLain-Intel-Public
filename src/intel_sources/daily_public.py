@@ -22,7 +22,10 @@ logger = logging.getLogger(__name__)
 _SECRET_RE = re.compile(
     r'(?i)(api[_-]?key|sk-[A-Za-z0-9_-]{6,}|gh[pousr]_[A-Za-z0-9]{16,}|github_pat_[A-Za-z0-9_]{20,}|bearer\s+[A-Za-z0-9._~+/=-]{12,}|password\s*[=:]?\s*\S+)'
 )
-_PATH_RE = re.compile(r'(?i)^[a-zA-Z]:[/\\]|^/home/|^/tmp/|^/var/|^/etc/')
+# Detection is unanchored: a personal path anywhere in a field must reject the
+# export, not only a path at the very start of the value. The lookbehind keeps
+# "https://" (s:/) from matching as a Windows drive path.
+_PATH_RE = re.compile(r'(?i)(?<![a-zA-Z])[a-zA-Z]:[/\\]|/(?:home|tmp|var|etc|root|usr)/')
 _CONTROL_RE = re.compile(r'[\x00-\x1f\x7f]')
 
 def _reject_control_chars(value: str) -> None:
