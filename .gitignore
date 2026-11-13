@@ -44,3 +44,10 @@ Thumbs.db
 # Local CLI state
 a.local/
 .local/
+*.dump
+*.sql
+*.pyc
+secrets.*
+*.pem
+*.key
+node_modules/
